@@ -3,7 +3,6 @@
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
 
   /* ---------- Entrada (foto do hero) ---------- */
@@ -76,14 +75,32 @@
 
   // Desfoque das seções que ficam por baixo (hero → projects → about)
   var blurTargets = [].map.call(document.querySelectorAll("[data-blur-by]"), function (el) {
-    return { el: el, by: document.getElementById(el.getAttribute("data-blur-by")), last: -1 };
+    var r = (el.getAttribute("data-blur-range") || "0.2265,0.83").split(",").map(Number);
+    return { el: el, by: document.getElementById(el.getAttribute("data-blur-by")), a: r[0], b: r[1], last: -1 };
   });
 
-  // Parallax interno das fotos da colagem
-  var parallax = [].map.call(document.querySelectorAll("[data-parallax]"), function (el) {
-    var p = el.getAttribute("data-parallax").split(",").map(Number);
-    return { el: el, k: p[0], zero: p[1], min: p[2], top: 0 };
+  // Colagem: movimento, escala e desfoque por rolagem
+  // (quadros-chave medidos no site original em 1920×945)
+  var collage = [].map.call(document.querySelectorAll("[data-kf]"), function (el) {
+    var frames = el.getAttribute("data-kf").split(";").map(function (f) {
+      var p = f.split(":"), v = p[1].split(",").map(Number);
+      return { y: Number(p[0]), dx: v[0], dy: v[1], s: v[2], b: v[3] };
+    });
+    return { el: el, f: frames };
   });
+  function sample(frames, y) {
+    if (y <= frames[0].y) return frames[0];
+    var last = frames[frames.length - 1];
+    if (y >= last.y) return last;
+    for (var i = 1; i < frames.length; i++) {
+      if (y <= frames[i].y) {
+        var a = frames[i - 1], b = frames[i], t = (y - a.y) / (b.y - a.y);
+        return { dx: a.dx + (b.dx - a.dx) * t, dy: a.dy + (b.dy - a.dy) * t,
+                 s: a.s + (b.s - a.s) * t, b: a.b + (b.b - a.b) * t };
+      }
+    }
+    return last;
+  }
 
   // Serviços entrando pelas laterais
   var slides = [].map.call(document.querySelectorAll("[data-slide]"), function (el) {
@@ -107,10 +124,7 @@
       sectionTops[s.id] = y;
       y += s.offsetHeight;
     });
-    parallax.forEach(function (p) {
-      var sec = p.el.closest("section");
-      p.top = sectionTops[sec.id] + p.el.parentNode.offsetTop;
-    });
+
   }
 
   function onScroll() {
@@ -119,25 +133,28 @@
     blurTargets.forEach(function (b) {
       var nextTop = sectionTops[b.by.id];
       var x = sy - (nextTop - vh);
-      var amount = reduceMotion ? 0 : 50 * clamp((x - 0.213 * vh) / (0.548 * vh), 0, 1);
+      var amount = reduceMotion ? 0 : 50 * clamp((x - b.a * vh) / ((b.b - b.a) * vh), 0, 1);
       amount = Math.round(amount * 10) / 10;
       if (amount !== b.last) {
-        b.el.style.filter = amount > 0 ? "blur(" + amount + "px)" : "";
+        // o original aplica o desfoque duas vezes
+        b.el.style.filter = amount > 0 ? "blur(" + amount + "px) blur(" + amount + "px)" : "";
         b.last = amount;
       }
     });
 
     if (!reduceMotion) {
-      parallax.forEach(function (p) {
-        var t = Math.max(p.min * vh, p.k * (sy - (p.top + p.zero * vh)));
-        p.el.style.transform = "translate3d(0," + t.toFixed(1) + "px,0)";
+      var k = vw / 1920, yN = sy * 945 / vh;
+      collage.forEach(function (c) {
+        var v = sample(c.f, yN);
+        c.el.style.transform = "translate3d(" + (v.dx * k).toFixed(1) + "px," + (v.dy * k).toFixed(1) + "px,0) scale(" + v.s.toFixed(4) + ")";
+        c.el.style.filter = v.b > 0.05 ? "blur(" + v.b.toFixed(2) + "px) blur(" + v.b.toFixed(2) + "px)" : "";
       });
 
-      var speed = 2.1 * vw / 1920;
       slides.forEach(function (s) {
         var row = s.el.parentNode.getBoundingClientRect();
         var start = Math.abs(s.from) / 100 * vw;
-        var remaining = Math.max(0, start - speed * (vh - row.top) * (1920 / vw));
+        var travelled = 2.2 * Math.max(0, (vh - row.top) - 0.04 * vh) * k;
+        var remaining = clamp(start - travelled, 0, start);
         var off = (s.from < 0 ? -1 : 1) * remaining;
         s.el.style.transform = off ? "translate3d(" + off.toFixed(1) + "px,0,0)" : "";
       });
@@ -181,55 +198,4 @@
     });
   }
 
-  /* ---------- Efeitos de mouse na colagem ---------- */
-  if (reduceMotion) return;
-  var collage = [].map.call(document.querySelectorAll(".collage[data-effect]"), function (el) {
-    var o = { el: el, type: el.getAttribute("data-effect"), cur: { x: 0, y: 0, s: 0, b: 0, rx: 0, ry: 0 } };
-    if (o.type === "track") o.amp = Number(el.getAttribute("data-amp"));
-    else {
-      var d = el.getAttribute("data-depth").split(",").map(Number);
-      o.smin = d[0]; o.smax = d[1]; o.bmin = d[2]; o.bmax = d[3]; o.tx = d[4];
-    }
-    return o;
-  });
-  if (!collage.length) return;
-
-  var mouse = { x: vw / 2, y: vh / 2 };
-  if (finePointer) {
-    window.addEventListener("mousemove", function (e) { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
-  }
-
-  var lerp = function (a, b, t) { return a + (b - a) * t; };
-  (function frame() {
-    var scale = vw / 1920;
-    collage.forEach(function (o) {
-      var r = o.el.getBoundingClientRect();
-      if (r.bottom < -200 || r.top > vh + 200) return;
-      // centro sem a transformação atual
-      var cx = r.left + r.width / 2 - o.cur.x;
-      var cy = r.top + r.height / 2 - o.cur.y;
-      var dx = mouse.x - cx, dy = mouse.y - cy;
-      var c = o.cur;
-      if (o.type === "track") {
-        var tx = clamp(dx / (vw / 2), -1, 1) * o.amp * scale;
-        var ty = clamp(dy / (vh / 2), -1, 1) * o.amp * scale;
-        c.x = lerp(c.x, tx, 0.06); c.y = lerp(c.y, ty, 0.06);
-        o.el.style.transform = "translate3d(" + c.x.toFixed(2) + "px," + c.y.toFixed(2) + "px,0)";
-      } else {
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        var f = clamp(dist / (vw * 0.5), 0, 1);
-        var s = o.smax - (o.smax - o.smin) * f;
-        var b = o.bmin + (o.bmax - o.bmin) * f;
-        var rx = clamp(-dy / vh, -1, 1) * 4;
-        var ry = clamp(dx / vw, -1, 1) * 4;
-        if (!c.s) { c.s = s; c.b = b; }
-        c.s = lerp(c.s, s, 0.06); c.b = lerp(c.b, b, 0.06);
-        c.rx = lerp(c.rx, rx, 0.06); c.ry = lerp(c.ry, ry, 0.06);
-        o.el.style.transform = "perspective(600px) translate3d(" + (o.tx * scale).toFixed(2) + "px,0,0) rotateX(" +
-          c.rx.toFixed(2) + "deg) rotateY(" + c.ry.toFixed(2) + "deg) scale(" + c.s.toFixed(4) + ")";
-        o.el.style.filter = "blur(" + c.b.toFixed(2) + "px)";
-      }
-    });
-    requestAnimationFrame(frame);
-  })();
 })();
