@@ -616,9 +616,9 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   .site-footer__cols .col--legal { order: 4; }
   .site-footer__copy { font-size: 12px; }
 
-  .work { height: auto; padding: 16px 5.9vw 60px; }
-  .work__title { position: static; padding-top: 0; font-size: 20px; }
-  .gallery { position: relative; left: auto; right: auto; top: auto; margin-top: 40px; height: 120vw; }
+  .work { height: 100vh; min-height: 600px; padding: 0; }
+  .work__title { left: 5.9vw; top: 16px; font-size: 20px; }
+  .gallery { left: 5.9vw; right: 5.9vw; top: 90px; height: auto; bottom: 40px; }
   .gallery__item { left: var(--mx); top: var(--my); width: var(--mw); height: var(--mh); }
   .gallery__track { width: var(--track-mw); }
   .gallery__caption { font-size: 13px; bottom: 16px; }
