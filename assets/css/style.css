@@ -334,6 +334,8 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 }
 .site-footer__brand {
   margin: -1.354vw 0 0;
+  position: relative;
+  top: 0.55vw;
   font-size: 10.156vw;
   line-height: 0.9;
   letter-spacing: -0.04em;
@@ -356,7 +358,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   font-size: 14px;
   line-height: 1.15;
 }
-.site-footer__copy a { text-decoration: none; }
+.site-footer__copy a { text-decoration: underline; }
 
 /* ==========================================================================
    Página WORK (galeria horizontal)
