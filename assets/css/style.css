@@ -634,3 +634,5 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   .gallery__item { opacity: 1; transition: none; }
   .gallery__scroller { scroll-behavior: auto; }
 }
+
+.nw { white-space: nowrap; }
