@@ -392,6 +392,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .gallery__item {
   position: absolute;
   left: var(--x); top: var(--y); width: var(--w); height: var(--h);
+  margin: 0;
   overflow: hidden;
   opacity: 0;
   transition: opacity 0.8s ease;
