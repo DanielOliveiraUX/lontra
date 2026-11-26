@@ -1,33 +1,35 @@
-# The Mood Swinger — site estático
+# The Mood Swinger — site
 
-Recriação do site feito no Wix Studio em HTML, CSS e JavaScript puros, sem dependências nem etapa de build.
+Site estático (Jekyll, publicado pelo GitHub Pages) recriado a partir do Wix Studio.
+
+- Site: https://danieloliveiraux.github.io/lontra/
+- Painel de gestão: https://danieloliveiraux.github.io/lontra/admin/ (Pages CMS)
+
+## O que é editável pelo painel
+
+- **Projetos (página WORK):** adicionar, remover, reordenar, trocar título e foto.
+  As posições da galeria seguem um padrão fixo de 18 lugares que se repete.
+- **Textos e fotos do site:** abertura, colagem "Latest Projects" (8 fotos),
+  About, Creative Services, Instagram (4 fotos) e rodapé.
+
+Cada alteração salva no painel vira um commit no repositório; o site é atualizado em ~1 minuto.
 
 ## Estrutura
 
 ```
-index.html                      Página inicial
-projects/index.html             WORK (galeria horizontal)
-privacy-policy/index.html       Privacy Policy
-accessibility-statement/        Accessibility Statement
-assets/css/style.css            Estilos (desktop > 1000px, tablet 751–1000px, mobile ≤ 750px)
-assets/js/main.js               Menu mobile, galeria e animações de rolagem/mouse
-assets/img/                     Imagens locais
+_data/site.yml          Textos e fotos da página inicial e do rodapé
+_data/projects.yml      Projetos da página WORK
+_data/layout.json       Posições e animações (não editar pelo painel)
+_layouts/, _includes/   Modelos das páginas
+index.html              Página inicial
+projects/index.html     WORK
+assets/                 CSS, JS e imagens (uploads do painel em assets/uploads/)
+.pages.yml              Configuração do painel (Pages CMS)
+admin/index.html        Atalho /admin/ para o painel
 ```
 
-## Publicar no GitHub Pages
-
-Settings → Pages → Source: *Deploy from a branch* → Branch: `main` / `(root)`.
-
-## Ver localmente
+## Rodar localmente
 
 ```
-python3 -m http.server 8000
+bundle exec jekyll serve --baseurl /lontra
 ```
-
-e abra http://localhost:8000.
-
-## Observações
-
-- As fotos da colagem, da galeria e do Instagram ainda são carregadas do CDN do Wix (`static.wixstatic.com`).
-  Para tirar essa dependência, baixe cada imagem para `assets/img/` e troque a URL no HTML.
-- Fontes: "Bodoni Moda" itálico (Google Fonts) no lugar da Didot do Wix e Helvetica/Arial do sistema.

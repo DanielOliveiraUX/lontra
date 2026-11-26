@@ -1,0 +1,7 @@
+title: The Mood Swinger
+baseurl: "/lontra"
+url: "https://danieloliveiraux.github.io"
+lang: pt-BR
+exclude:
+  - README.md
+  - .pages.yml

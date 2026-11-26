@@ -1,0 +1,1 @@
+{% assign src = include.src %}{% unless src contains '://' %}{% assign src = src | relative_url %}{% endunless %}{{ src }}

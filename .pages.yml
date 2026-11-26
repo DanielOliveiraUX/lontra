@@ -1,0 +1,186 @@
+media:
+  input: assets/uploads
+  output: /assets/uploads
+  rename: safe
+  categories: [image]
+
+content:
+  - name: projetos
+    label: Projetos (página WORK)
+    type: file
+    path: _data/projects.yml
+    format: yaml
+    list: true
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: image
+        label: Foto
+        type: image
+        required: true
+
+  - name: site
+    label: Textos e fotos do site
+    type: file
+    path: _data/site.yml
+    format: yaml
+    fields:
+      - name: header
+        label: Topo
+        type: object
+        fields:
+          - name: logo
+            label: Nome no topo
+            type: string
+
+      - name: hero
+        label: Abertura (primeira seção)
+        type: object
+        fields:
+          - name: title_line1
+            label: Título grande — 1ª parte
+            type: string
+          - name: title_line2
+            label: Título grande — 2ª parte
+            type: string
+          - name: photo
+            label: Foto
+            type: image
+          - name: photo_alt
+            label: Descrição da foto (acessibilidade)
+            type: string
+          - name: text_left
+            label: Texto inferior esquerdo
+            type: text
+          - name: text_right
+            label: Texto inferior direito
+            type: text
+
+      - name: projects_home
+        label: Latest Projects (colagem da página inicial)
+        type: object
+        fields:
+          - name: title
+            label: Título
+            type: string
+          - name: title_italic
+            label: Título em itálico
+            type: string
+          - name: button
+            label: Texto do botão
+            type: string
+          - name: photos
+            label: Fotos da colagem (8, na ordem das posições)
+            type: image
+            list:
+              min: 8
+              max: 8
+
+      - name: about
+        label: About
+        type: object
+        fields:
+          - name: title
+            label: Título
+            type: string
+          - name: text
+            label: Texto
+            type: text
+          - name: photo
+            label: Foto
+            type: image
+          - name: photo_alt
+            label: Descrição da foto (acessibilidade)
+            type: string
+
+      - name: services
+        label: Creative Services
+        type: object
+        fields:
+          - name: title
+            label: Título
+            type: string
+          - name: title_italic
+            label: Título em itálico
+            type: string
+          - name: items
+            label: Serviços
+            type: string
+            list:
+              min: 1
+              max: 4
+
+      - name: instagram
+        label: Instagram
+        type: object
+        fields:
+          - name: title
+            label: Título
+            type: string
+          - name: title_italic
+            label: Título em itálico
+            type: string
+          - name: link
+            label: Link do perfil
+            type: string
+          - name: photos
+            label: Fotos (4)
+            type: object
+            list:
+              min: 4
+              max: 4
+            fields:
+              - name: image
+                label: Foto
+                type: image
+              - name: alt
+                label: Descrição da foto
+                type: string
+
+      - name: footer
+        label: Rodapé
+        type: object
+        fields:
+          - name: brand_italic
+            label: Nome — parte em itálico
+            type: string
+          - name: brand_line1
+            label: Nome — 1ª linha
+            type: string
+          - name: brand_line2
+            label: Nome — 2ª linha
+            type: string
+          - name: address
+            label: Endereço
+            type: text
+          - name: phone
+            label: Telefone
+            type: string
+          - name: email
+            label: E-mail
+            type: string
+          - name: social
+            label: Redes sociais
+            type: object
+            list: true
+            fields:
+              - name: label
+                label: Nome
+                type: string
+              - name: url
+                label: Link
+                type: string
+          - name: copyright
+            label: Copyright
+            type: string
+          - name: credit_text
+            label: Crédito — texto
+            type: string
+          - name: credit_link_label
+            label: Crédito — link (deixe vazio para esconder)
+            type: string
+          - name: credit_link_url
+            label: Crédito — endereço do link
+            type: string
