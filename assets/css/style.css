@@ -74,16 +74,16 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .site-nav {
   position: absolute;
   top: 11px;
-  left: calc(29.13vw - 217px);
+  left: calc(44.64vw - 164px);
   right: 1.979vw;
   height: 49px;
   display: flex;
+  justify-content: space-between;
 }
 .site-nav a {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   white-space: nowrap;
 }
 .site-nav a span { text-underline-offset: 2px; }
@@ -165,8 +165,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   position: absolute;
   left: 1.302vw;
   top: 3.9vw;
-  margin-top: 0.113em; /* compensa a métrica da Bodoni Moda vs. Didot */
-  margin: 0;
+  margin: 0.113em 0 0; /* compensa a métrica da Bodoni Moda vs. Didot */
   font-family: var(--serif);
   font-style: italic;
   font-size: 10.156vw;
@@ -486,7 +485,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 
   .site-header { height: 80px; }
   .site-header__logo { left: 2vw; top: 30px; }
-  .site-nav { left: 28vw; right: 2vw; top: 15px; }
+  .site-nav { left: 39.25vw; right: 2vw; top: 15px; }
 
   .hero { height: auto; min-height: 1000px; }
   .hero__title {
