@@ -8,7 +8,7 @@
   --red: #d13400;
   --yellow: #f2fc82;
   --serif: "Bodoni Moda", "Didot", "Bodoni 72", "Times New Roman", serif;
-  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --sans: Helvetica, "Helvetica Neue", Arial, sans-serif;
   /* título de seção: 28px em 1920 → 20px em 1024 */
   --heading: calc(0.893vw + 10.86px);
 }
@@ -74,7 +74,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .site-nav {
   position: absolute;
   top: 11px;
-  left: calc(44.64vw - 164px);
+  left: calc(29.13vw - 217px);
   right: 1.979vw;
   height: 49px;
   display: flex;
@@ -165,6 +165,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   position: absolute;
   left: 1.302vw;
   top: 3.9vw;
+  margin-top: 0.113em; /* compensa a métrica da Bodoni Moda vs. Didot */
   margin: 0;
   font-family: var(--serif);
   font-style: italic;
@@ -220,16 +221,17 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .projects__inner { position: absolute; inset: 0; }
 .projects__head {
   position: absolute;
-  left: 0; right: 0;
+  left: 41.73%;
   top: 4.06vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   z-index: 5;
 }
 .btn-outline {
   display: inline-block;
   margin-top: calc(0.9vw + 6px);
+  margin-left: 3.78vw;
   padding: 3px 14px 3px;
   border: 1px solid var(--red);
   border-radius: 300px;
@@ -349,7 +351,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .site-footer__cols .col { display: flex; flex-direction: column; align-items: flex-start; }
 .site-footer__cols .col--phone { font-size: 16px; }
 .site-footer__copy {
-  margin-top: 0.75em;
+  margin-top: 30px;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.15;
@@ -494,7 +496,8 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   .hero__foot--right { right: 2vw; }
 
   .projects { height: 107vh; min-height: 1070px; }
-  .projects__head { top: 32px; }
+  .projects__head { top: 32px; left: 0; right: 0; align-items: center; }
+  .projects__head .btn-outline { margin-left: 0; }
   .btn-outline { margin-top: 15px; }
   .collage { left: var(--tx); width: var(--tw); height: var(--th); }
   .collage.top    { top: var(--ty); }
@@ -564,7 +567,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   .hero__foot--right { right: 5.9vw; }
 
   .projects { height: 114.081vh; min-height: 963px; }
-  .projects__head { top: 38px; }
+  .projects__head { top: 38px; left: 0; right: 0; align-items: center; }
   .btn-outline { margin-top: 17px; }
   .collage { left: var(--mx); width: var(--mw); height: var(--mh); }
   .collage.top    { top: var(--my); }
