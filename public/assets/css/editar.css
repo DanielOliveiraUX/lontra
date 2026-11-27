@@ -1,0 +1,26 @@
+/* Edição pelo site (só aparece para quem está logado) */
+.ed-barra { position: fixed; z-index: 200; left: 50%; top: 12px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 14px; border-radius: 40px; background: rgba(32, 32, 32, .92); color: #fff; font: 600 14px/1 "Quicksand", system-ui, sans-serif; box-shadow: 0 8px 30px rgba(0,0,0,.25); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); white-space: nowrap; }
+.ed-barra button, .ed-barra a { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border-radius: 20px; border: 0; background: rgba(255,255,255,.12); color: #fff; font: inherit; cursor: pointer; text-decoration: none; }
+.ed-barra button:hover, .ed-barra a:hover { background: rgba(255,255,255,.22); }
+.ed-barra .ed-pub { background: #6fb3a9; color: #10302c; }
+.ed-barra .ed-pub:hover { background: #8cc6bd; }
+.ed-barra .ed-pub[hidden], .ed-barra .ed-desf[hidden] { display: none; }
+.ed-barra .ed-st { opacity: .8; font-weight: 500; }
+.ed-chave { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.ed-chave i { position: relative; width: 34px; height: 20px; border-radius: 10px; background: #777; transition: background .2s; }
+.ed-chave i::after { content: ""; position: absolute; left: 2px; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.ed-on .ed-chave i { background: #6fb3a9; }
+.ed-on .ed-chave i::after { transform: translateX(14px); }
+
+.ed-on [data-edit] { cursor: text; outline: 1px dashed transparent; outline-offset: 4px; transition: outline-color .15s; }
+.ed-on [data-edit]:hover { outline-color: rgba(111, 179, 169, .95); }
+.ed-on [data-edit].ed-ativo { outline: 2px solid #6fb3a9; outline-offset: 4px; }
+.ed-on [data-edit].ed-mudou:not(.ed-ativo) { outline: 2px dashed #e0a030; outline-offset: 4px; }
+.ed-lapis { position: absolute; z-index: 210; width: 30px; height: 30px; border-radius: 50%; border: 0; background: #6fb3a9; color: #10302c; font-size: 15px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.3); pointer-events: auto; padding: 0; }
+.ed-aviso { position: fixed; z-index: 220; left: 50%; bottom: 28px; transform: translateX(-50%); padding: 12px 18px; border-radius: 10px; background: #2f2f2f; color: #fff; font: 600 14px "Quicksand", system-ui, sans-serif; box-shadow: 0 8px 30px rgba(0,0,0,.25); }
+.ed-aviso--ok { background: #2f7d4f; } .ed-aviso--erro { background: #b84a3a; }
+.ed-on .fx { opacity: 1 !important; filter: none !important; clip-path: none !important; }
+@media (max-width: 979px) {
+  .ed-barra { top: auto; bottom: 76px; max-width: calc(100vw - 20px); overflow-x: auto; }
+  .ed-barra .ed-st { display: none; }
+}

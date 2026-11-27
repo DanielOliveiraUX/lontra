@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home | Lake</title>
+  <meta name="description" content="Lake — a human sound craft shop. Trilhas, sound design, foley, jingles e voice over.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css?v={{v}}">
+<!--@HEAD-->
+</head>
+<body>
+  <main id="main">
+
+    <!-- 1. Topo -->
+    <section class="sec hero" id="topo">
+      <div class="fixed-bg" aria-hidden="true">
+        <video autoplay muted loop playsinline poster="{{m:m1}}">
+          <source src="{{m:m2}}" type="video/mp4">
+        </video>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track"><span>#storytelling&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#sounddesign&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#foley&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#soundtrack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#voiceover&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#jingles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#advertising&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#film&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>#storytelling&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#sounddesign&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#foley&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#soundtrack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#voiceover&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#jingles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#advertising&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#film&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </div>
+      <div class="grid">
+        <img class="hero__beach" src="{{m:m3}}" alt="" aria-hidden="true">
+        <h1 class="hero__logo"><img src="{{m:m4}}" alt="Lake"></h1>
+        <p class="hero__tagline" data-edit="textos.hero_tagline">{{t:hero_tagline}}</p>
+        <a class="hero__down" href="#sobre" aria-label="Rolar para baixo"><img src="{{m:m5}}" alt=""></a>
+      </div>
+      <div class="wave wave--bottom" aria-hidden="true"></div>
+    </section>
+
+    <!-- 2. Sobre -->
+    <section class="sec about" id="sobre">
+      <div class="grid">
+        <div class="vid" style="left:-77px;top:253px" data-par="225"><div class="vid__in"><video autoplay muted loop playsinline preload="metadata" poster="{{m:m6}}"><source src="{{m:m7}}" type="video/mp4"></video><span class="veil" style="opacity:.84"></span></div></div>
+        <div class="vid" style="left:414px;top:736px" data-par="250"><div class="vid__in"><video autoplay muted loop playsinline preload="metadata" poster="{{m:m8}}"><source src="{{m:m9}}" type="video/mp4"></video><span class="veil" style="opacity:.74"></span></div></div>
+        <div class="vid" style="left:140px;top:550px" data-par="350"><div class="vid__in"><video autoplay muted loop playsinline preload="metadata" poster="{{m:m10}}"><source src="{{m:m11}}" type="video/mp4"></video><span class="veil" style="opacity:.64"></span></div></div>
+        <div class="vid" style="left:652px;top:384px" data-par="250"><div class="vid__in"><video autoplay muted loop playsinline preload="metadata" poster="{{m:m12}}"><source src="{{m:m13}}" type="video/mp4"></video><span class="veil" style="opacity:.74"></span></div></div>
+        <div class="vid" style="left:391px;top:48px" data-par="100"><div class="vid__in"><video autoplay muted loop playsinline preload="metadata" poster="{{m:m8}}"><source src="{{m:m9}}" type="video/mp4"></video><span class="veil" style="opacity:.74"></span></div></div>
+
+        <h2 class="t-big about__lead fx fx-fade" style="left:21.5px;top:78px" data-edit="textos.sobre_titulo">{{t:sobre_titulo}}</h2>
+        <p class="t-small about__p1 fx fx-blur6" data-delay="300" style="left:21.5px;top:339px" data-edit="textos.sobre_texto1" data-rich>{{r:sobre_texto1}}</p>
+        <p class="t-small t-dark about__p2 fx fx-fade" data-delay="600" style="left:21.5px;top:484px" data-edit="textos.sobre_texto2">{{t:sobre_texto2}}</p>
+
+        <p class="t-small about__p3 fx fx-fade" data-delay="200" style="left:544.5px;top:84px" data-edit="textos.sobre_texto3">{{t:sobre_texto3}}</p>
+        <p class="t-big about__p4 fx fx-fade" data-delay="500" style="left:544.5px;top:177px" data-edit="textos.sobre_texto4">{{t:sobre_texto4}}</p>
+        <p class="t-big t-bold about__lake fx fx-blur6" data-delay="800" style="left:544.5px;top:553px" data-edit="textos.sobre_assinatura1">{{t:sobre_assinatura1}}</p>
+        <p class="t-big t-bold about__shop fx fx-reveal-up" data-delay="1000" style="left:544.5px;top:589px" data-edit="textos.sobre_assinatura2" data-rich>{{r:sobre_assinatura2}}</p>
+        <a class="link-arrow fx fx-fade" data-delay="1400" style="left:544.5px;top:702px" href="/portfolio/"><span data-edit="textos.sobre_link">{{t:sobre_link}}</span><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M99.833 29c39.059 0 70.834 31.775 70.834 70.833 0 39.059-31.775 70.834-70.834 70.834C60.775 170.667 29 138.892 29 99.833 29 60.775 60.775 29 99.833 29Zm0 8.333c-34.466 0-62.5 28.034-62.5 62.5 0 34.467 28.034 62.5 62.5 62.5 34.467 0 62.5-28.033 62.5-62.5 0-34.466-28.033-62.5-62.5-62.5ZM85.367 71.162a4.13 4.13 0 0 1 4.275.208l37.5 24.992A4.146 4.146 0 0 1 129 99.828a4.157 4.157 0 0 1-1.858 3.467l-37.5 25.008c-.692.459-1.5.7-2.309.7-.675 0-1.35-.166-1.966-.5a4.168 4.168 0 0 1-2.2-3.666v-50c0-1.542.85-2.95 2.2-3.675ZM91.5 82.62v34.425l25.825-17.217L91.5 82.62Z" fill-rule="evenodd"/></svg></a>
+      </div>
+    </section>
+
+    <!-- 3. Projetos -->
+<!--@PROJETOS-->
+
+    <!-- 4. Contato -->
+    <section class="sec contact" id="contato">
+      <div class="grid">
+        <div class="vid" style="left:690.5px;top:119px" data-par="250"><div class="vid__in"><video autoplay muted loop playsinline preload="metadata" poster="{{m:m14}}"><source src="{{m:m15}}" type="video/mp4"></video><span class="veil" style="opacity:.74"></span></div></div>
+        <div class="vid" style="left:-85.5px;top:283px" data-par="250"><div class="vid__in"><video autoplay muted loop playsinline preload="metadata" poster="{{m:m16}}"><source src="{{m:m17}}" type="video/mp4"></video><span class="veil" style="opacity:.74"></span></div></div>
+        <h2 class="contact__lead fx fx-wipe" data-edit="textos.contato_chamada" data-rich>{{r:contato_chamada}}</h2>
+        <p class="contact__info fx fx-fade" data-delay="400"><span data-edit="textos.contato_telefone">{{t:contato_telefone}}</span><br><a href="mailto:{{t:contato_email}}" data-edit="textos.contato_email">{{t:contato_email}}</a><br><b data-edit="textos.contato_cidade">{{t:contato_cidade}}</b></p>
+      </div>
+    </section>
+
+    <!-- faixa final -->
+    <section class="sec strip" aria-hidden="true">
+      <div class="fixed-bg">
+        <video autoplay muted loop playsinline poster="{{m:m1}}">
+          <source src="{{m:m2}}" type="video/mp4">
+        </video>
+      </div>
+      <div class="wave wave--top"></div>
+      <img class="strip__flower" src="{{m:m18}}" alt="">
+    </section>
+  </main>
+
+  <!-- elementos fixos -->
+  <nav class="dots" aria-label="Seções">
+    <a href="#sobre" data-target="sobre" aria-label="Sobre"><svg viewBox="0 0 48 48"><circle class="o" cx="24" cy="24" r="22"/><circle class="m" cx="24" cy="24" r="10"/><circle class="i" cx="24" cy="24" r="10"/></svg></a>
+<!--@DOTS-->
+    <a href="#contato" data-target="contato" aria-label="Contato"><svg viewBox="0 0 48 48"><circle class="o" cx="24" cy="24" r="22"/><circle class="m" cx="24" cy="24" r="10"/><circle class="i" cx="24" cy="24" r="10"/></svg></a>
+  </nav>
+  <a class="btn-portfolio" href="/portfolio/" data-edit="textos.botao_portfolio">{{t:botao_portfolio}}</a>
+
+  <!-- Artigos (abertos pelo "leia mais") -->
+<!--@ARTIGOS-->
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="icon-play" viewBox="0 0 200 200"><path d="M99.833 29c39.059 0 70.834 31.775 70.834 70.833 0 39.059-31.775 70.834-70.834 70.834C60.775 170.667 29 138.892 29 99.833 29 60.775 60.775 29 99.833 29Zm0 8.333c-34.466 0-62.5 28.034-62.5 62.5 0 34.467 28.034 62.5 62.5 62.5 34.467 0 62.5-28.033 62.5-62.5 0-34.466-28.033-62.5-62.5-62.5ZM85.367 71.162a4.13 4.13 0 0 1 4.275.208l37.5 24.992A4.146 4.146 0 0 1 129 99.828a4.157 4.157 0 0 1-1.858 3.467l-37.5 25.008c-.692.459-1.5.7-2.309.7-.675 0-1.35-.166-1.966-.5a4.168 4.168 0 0 1-2.2-3.666v-50c0-1.542.85-2.95 2.2-3.675ZM91.5 82.62v34.425l25.825-17.217L91.5 82.62Z" fill-rule="evenodd"/></symbol></svg>
+  <script src="/assets/js/main.js?v={{v}}" defer></script>
+<!--@EDITOR-->
+</body>
+</html>

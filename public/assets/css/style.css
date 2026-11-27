@@ -360,3 +360,4 @@ html.has-pop, html.has-pop body { overflow: hidden; }
   .pback { height: 140px; }
   .pback__btn { width: 260px; margin-left: -130px; top: 20px; }
 }
+.about__p1 span { font-weight: 400; }

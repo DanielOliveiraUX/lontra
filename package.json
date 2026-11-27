@@ -1,0 +1,14 @@
+{
+  "name": "lake",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "banco:local": "wrangler d1 migrations apply lake --local",
+    "banco:nuvem": "wrangler d1 migrations apply lake --remote",
+    "deploy": "wrangler d1 migrations apply lake --remote && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
