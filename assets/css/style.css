@@ -91,6 +91,10 @@ img, video { display: block; }
 }
 .link-arrow svg { width: 37px; height: 37px; fill: currentColor; flex: none; }
 .link-arrow--light { color: #fff; }
+button.link-arrow { background: none; border: 0; padding: 0; font-family: inherit; cursor: pointer; }
+/* "leia mais": o ícone aponta para baixo e gira para a direita no hover, com um leve salto */
+.project__more svg { transform: rotate(90deg); transition: transform .22s cubic-bezier(.34,1.7,.6,1); }
+.project__more:hover svg, .project__more:focus-visible svg { transform: rotate(2deg) scale(1.2); }
 .link-arrow:hover span { text-decoration: underline; }
 
 /* ---------------- 2. Sobre ---------------- */
@@ -175,11 +179,59 @@ img, video { display: block; }
   border-radius: 3px;
   color: var(--white);
   font-size: 18px; font-weight: 700;
-  opacity: 0;
-  pointer-events: none;
+  transition: background .2s;
 }
-.btn-portfolio.is-visible { pointer-events: auto; }
 .btn-portfolio:hover { background: rgba(232, 230, 230, 0.4); }
+
+/* ---------------- Artigos em sobreposição ("leia mais") ---------------- */
+.pop { position: fixed; inset: 0; z-index: 50; opacity: 0; transition: opacity .4s ease; }
+.pop.is-open { opacity: 1; }
+.pop[hidden] { display: none; }
+.pop__bg { position: absolute; inset: 0; background: rgba(40, 38, 38, .95); }
+.pop__scroll { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; }
+.pop__body { position: relative; width: 980px; margin: 0 auto; color: var(--white); }
+.pop__body > * { position: absolute; margin: 0; }
+.pop__close { position: fixed; z-index: 2; top: 30px; right: 45px; width: 23px; height: 23px; padding: 0; background: none; border: 0; cursor: pointer; color: var(--white); }
+.pop__close svg { width: 100%; height: 100%; stroke: currentColor; stroke-width: 2.2; fill: none; }
+.pop__close:hover { opacity: .7; }
+.pop__tag { left: 0; top: 60px; padding: 0 4px; background: var(--white); color: var(--ink); font-size: 12px; font-weight: 700; line-height: 21.6px; letter-spacing: 1.8px; }
+.pop__title { left: 0; top: 109px; width: 980px; font-size: 40px; font-weight: 700; line-height: 56px; letter-spacing: 2px; }
+.pop__sub { left: 0; top: 162px; width: 980px; font-size: 18px; font-weight: 700; line-height: 32.4px; letter-spacing: 1.8px; }
+.pop__p { font-size: 16px; line-height: 28.8px; letter-spacing: 1.6px; }
+.pop__abs { object-fit: cover; }
+.pop__vid { background: #000; }
+.award { width: 210px; height: 135px; }
+.award img { position: absolute; top: 0; width: 82px; height: 135px; object-fit: cover; }
+.award img + img { left: 128px; }
+.award strong, .award span { position: absolute; left: 0; right: 0; text-align: center; }
+.award strong { top: 29px; font-size: 18px; line-height: 21.6px; font-weight: 700; }
+.award span { top: 59px; font-size: 16px; line-height: 19.2px; }
+html.has-pop, html.has-pop body { overflow: hidden; }
+
+/* ---------------- Página Portfolio ---------------- */
+.phero { height: 401px; clip-path: inset(0); background: #6c8e93; }
+.phero .grid { z-index: 2; }
+.phero__flower { position: absolute; z-index: 1; left: 50%; top: 0; width: 2500px; height: 401px; margin-left: -1280px; object-fit: cover; pointer-events: none; }
+.phero__logo { left: -135.5px; top: 137px; width: 203px; height: 69px; }
+.phero__logo img { width: 100%; height: 100%; object-fit: cover; }
+.work { height: 980px; }
+.work__media { left: -81px; top: 104px; width: 1150px; height: 647px; background: #000; overflow: hidden; }
+.work__media video { width: 100%; height: 100%; object-fit: cover; }
+.work__title, .work__sub { left: -135.5px; width: 674px; font-family: var(--mono); font-size: 25px; line-height: 35px; letter-spacing: 3.75px; color: var(--ink-dark); z-index: 1; }
+.work__title { top: 144px; }
+.work__sub { top: 236px; }
+.work__title span, .work__sub span, .work__tag span { background: var(--white); padding-right: 10px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.work__tag { left: 751px; width: 343px; text-align: right; font-family: var(--mono); font-size: 18px; line-height: 32.4px; letter-spacing: 2.7px; color: var(--ink-dark); z-index: 1; }
+.work__tag span { padding: 0 0 0 6px; }
+.work--round .work__title, .work--round .work__sub, .work--round .work__tag { font-family: "Varela Round", var(--font); }
+.pback { height: 213px; }
+.pback__btn { position: absolute; left: 50%; top: 4px; width: 326px; height: 40px; margin-left: -163px; display: flex; align-items: center; justify-content: center; border: 1px solid #7e9d98; border-radius: 6px; font-family: var(--mono); font-size: 18px; letter-spacing: .5px; color: #7e9d98; transition: background .2s, color .2s; }
+.pback__btn:hover { background: #7e9d98; color: var(--white); }
+.pnav { position: fixed; z-index: 20; right: 30px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; }
+.pnav a { display: flex; align-items: center; gap: 10px; height: 22.4px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; color: #c7c7c7; transition: color .3s; }
+.pnav i { width: 11px; height: 11px; border: 1.5px solid #9e9e9e; border-radius: 50%; transition: background .3s, border-color .3s; }
+.pnav a:hover, .pnav a.is-active { color: #9e9e9e; }
+.pnav a.is-active i, .pnav a:hover i { background: #7e9d98; border-color: #7e9d98; }
 
 /* ---------------- Animações de entrada ---------------- */
 .fx { transition-property: opacity, filter, clip-path, transform; transition-timing-function: cubic-bezier(.25,.46,.45,.94); }
@@ -221,5 +273,21 @@ img, video { display: block; }
   .contact__lead { font-size: 32px; line-height: 1.3; letter-spacing: 1px; width: auto; }
   .contact__info { width: auto; }
   .dots { display: none; }
+  .pop__body { width: auto; height: auto !important; padding: 72px 24px 48px; display: flex; flex-direction: column; gap: 20px; }
+  .pop__body > * { position: static; width: auto !important; height: auto !important; }
+  .pop__tag { align-self: flex-start; }
+  .pop__title { font-size: 28px; line-height: 1.25; }
+  .pop__body .award { position: relative; height: 135px !important; width: 210px !important; align-self: center; }
+  .pop__body .award img { width: 82px !important; height: 135px !important; }
+  .pop__close { top: 20px; right: 20px; }
+  .phero { height: 260px; }
+  .phero .grid { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .phero__logo { width: 160px; height: 54px; }
+  .work { height: auto; padding: 40px 0; }
+  .work .grid { display: flex; flex-direction: column; gap: 12px; }
+  .work__media { order: -1; height: auto !important; aspect-ratio: 16 / 9; }
+  .work__title, .work__sub { font-size: 20px; line-height: 28px; letter-spacing: 2px; }
+  .work__tag { text-align: left; font-size: 15px; }
+  .pnav { display: none; }
   .btn-portfolio { right: 16px; bottom: 24px; width: 170px; height: 40px; font-size: 16px; }
 }

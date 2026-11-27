@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=2">
+  <link rel="stylesheet" href="assets/css/style.css?v=3">
 </head>
 <body>
   <main id="main">
@@ -60,7 +60,7 @@
         <span class="project__tag fx fx-clip">#advertising</span>
         <h2 class="project__title fx fx-blur25">Peacecamo: o som que veste a paz</h2>
         <p class="project__desc fx fx-fade" data-delay="200">O papel narrativo da trilha sonora no reposicionamento do exército libanês</p>
-        <span class="link-arrow link-arrow--light project__more"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></span>
+        <button type="button" class="link-arrow link-arrow--light project__more" data-popup="xgkob" aria-haspopup="dialog"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></button>
       </div></div>
     </section>
 
@@ -70,7 +70,7 @@
         <span class="project__tag fx fx-clip">#fashion</span>
         <h2 class="project__title fx fx-blur25">Akasha: Moda, Música &amp; AI</h2>
         <p class="project__desc fx fx-fade" data-delay="200">Som e tecnologia entram em sintonia na passarela de Irina Voinea</p>
-        <span class="link-arrow link-arrow--light project__more"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></span>
+        <button type="button" class="link-arrow link-arrow--light project__more" data-popup="s6rir" aria-haspopup="dialog"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></button>
       </div></div>
     </section>
 
@@ -80,7 +80,7 @@
         <span class="project__tag fx fx-clip">#film</span>
         <h2 class="project__title fx fx-blur25">Prenúncio: tensão que se pode ouvir</h2>
         <p class="project__desc fx fx-fade" data-delay="200">Som guiando a tensão em um curta de terror premiado</p>
-        <span class="link-arrow link-arrow--light project__more"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></span>
+        <button type="button" class="link-arrow link-arrow--light project__more" data-popup="xdkvs" aria-haspopup="dialog"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></button>
       </div></div>
     </section>
 
@@ -90,7 +90,7 @@
         <span class="project__tag fx fx-clip">#music</span>
         <h2 class="project__title fx fx-blur25">Passatempo: música com cara de cinema</h2>
         <p class="project__desc fx fx-fade" data-delay="200">Veja como enriquecemos o trabalho musical definindo detalhes com sound design de cinema</p>
-        <span class="link-arrow link-arrow--light project__more"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></span>
+        <button type="button" class="link-arrow link-arrow--light project__more" data-popup="xgkob" aria-haspopup="dialog"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></button>
       </div></div>
     </section>
 
@@ -100,7 +100,7 @@
         <span class="project__tag fx fx-clip">#content</span>
         <h2 class="project__title fx fx-blur25">Som que transforma produções cotidianas</h2>
         <p class="project__desc fx fx-fade" data-delay="200">Como a autenticidade musical agrega valor a campanhas de todos os portes</p>
-        <span class="link-arrow link-arrow--light project__more"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></span>
+        <button type="button" class="link-arrow link-arrow--light project__more" data-popup="xgkob" aria-haspopup="dialog"><span>leia mais</span><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#icon-play"/></svg></button>
       </div></div>
     </section>
 
@@ -138,7 +138,76 @@
   </nav>
   <a class="btn-portfolio" href="portfolio/">veja o portfolio</a>
 
+  <!-- Artigos (abertos pelo "leia mais") -->
+  <div class="pop" id="popup-xgkob" role="dialog" aria-modal="true" aria-labelledby="t-xgkob" hidden>
+    <div class="pop__bg"></div>
+    <button type="button" class="pop__close" aria-label="Voltar ao site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M21 3L3 21"/></svg></button>
+    <div class="pop__scroll"><article class="pop__body" style="height:2993px">
+      <span class="pop__tag">#advertising</span>
+      <h2 class="pop__title" id="t-xgkob">Peacecamo: o som que veste a paz</h2>
+      <p class="pop__sub">Conheça o papel narrativo da trilha sonora no reposicionamento do exército do Líbano</p>
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_c68159e3968c43aba7f027ea99608e9c~mv2.jpg/v1/fill/w_978,h_696,al_c,q_80/peacecamo.jpg" alt="Uniforme Peacecamo" loading="lazy" style="left:0;top:228px;width:489px;height:348px">
+      <p class="pop__p" style="left:533px;top:228px;width:447px">Ressignificar a imagem de um exército é uma missão complexa. No Líbano, a TBWA/RAAD teve a ousadia de reinventar a tradicional estampa de camuflagem, trocando manchas desformes por um novo design feito de silhuetas de soldados em ações pacíficas.<br><br>O uniforme, símbolo máximo da força militar, transformou-se em manifesto de paz. Mas para que essa transformação não fosse apenas visual, era preciso criar uma narrativa sonora capaz de dar corpo e emoção ao conceito.</p>
+      <p class="pop__p" style="left:0px;top:606px;width:980px">A Lake foi convidada para colaborar com a criação ainda nos momentos iniciais do projeto, recebendo a missão de criar a trilha sonora do press release, conceituando o universo sonoro que representasse o soldado do futuro.</p>
+      <video class="pop__abs pop__vid" controls playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_6c42ec5e53ce4c66af7850e559e4ae67f001.jpg/v1/fill/w_1960,h_1104,al_c,q_85/f.jpg" style="left:0;top:731px;width:980px;height:552px"><source src="https://video.wixstatic.com/video/afd2d5_6c42ec5e53ce4c66af7850e559e4ae67/1080p/mp4/file.mp4" type="video/mp4"></video>
+      <p class="pop__p" style="left:0px;top:1320px;width:447px">O processo se baseou nas experimentações feitas em estúdio e nas constantes trocas entre produtora e agência. Guiado não por referências definidas, mas por uma gama de variadas inspirações musicais e sonoras, que foram repensadas para a campanha e traduzidas na forma de timbres únicos criados exclusivamente, fazendo o uso de sintetizadores e unidades de efeito analógicas.</p>
+      <video class="pop__abs pop__vid" autoplay muted loop playsinline poster="https://static.wixstatic.com/media/afd2d5_c68159e3968c43aba7f027ea99608e9c~mv2.jpg/v1/fill/w_932,h_524,al_c,q_80/f.jpg" style="left:514px;top:1320px;width:466px;height:262px"><source src="https://video.wixstatic.com/video/afd2d5_878a95b7ad5c4f6180dc5dc01ecf9c5c/1080p/mp4/file.mp4" type="video/mp4"></video>
+      <p class="pop__p" style="left:0px;top:1608px;width:980px">Para o videocase, o desafio foi expandir esse universo e criar uma trilha que acompanhasse o arco de transformação pelo qual o exército e o uniforme passavam. Além da criação de sons artesanais, manipulação de samples e orquestração foram usados para contar essa história.</p>
+      <video class="pop__abs pop__vid" controls playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_13809568b13f4715ab4b4cccfd5410def002.jpg/v1/fill/w_1960,h_1108,al_c,q_85/f.jpg" style="left:0;top:1723px;width:980px;height:554px"><source src="https://video.wixstatic.com/video/afd2d5_13809568b13f4715ab4b4cccfd5410de/1080p/mp4/file.mp4" type="video/mp4"></video>
+      <p class="pop__p" style="left:0px;top:2311px;width:980px">A trilha foi concebida em três atos: iniciando com sons do passado, passando pelo momento de heroísmo e culminando no som de um futuro onde há uma nova forma de pensar a atuação militar.<br><br>No princípio temos o som da marcha de um pelotão atuando como fio condutor rítmico, acompanhado de sons inspirados em telemetria e código morse, reforçando o imaginário de táticas e tecnologias militares antigas.<br><br>Com a revelação do conceito, a trilha assume tom glorioso. Enquanto nos são apresentados alguns dos atos heróicos que inspiram o novo design, o arranjo é dominado pelos metais que remetem à cornetas militares.<br><br>No desfecho, se define o soldado do futuro. Bateria eletrônica, samples e sintetizadores, trazem imponência e modernidade, transmitindo a ideia de um novo soldado para novos tempos na originalidade a cada timbre.<br><br>Nada foi deixado ao acaso e mais do que um pano de fundo a trilha aqui trabalha em conjunto com a ideia, para contar uma história e comunicar o conceito e esse processo se traduziu em resultados nos festivais. A campanha Peacecamo recebeu diversas premiações, dentre elas o Leão de Prata em Industry Craft e o XXX no Dubai Lynx.</p>
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_307f4a55afa3496b850844c77f3c61b9~mv2.png/v1/crop/x_0,y_0,w_257,h_272/fill/w_190,h_206,al_c,q_85/premios.png" alt="" loading="lazy" style="left:-5px;top:2842px;width:95px;height:103px">
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_307f4a55afa3496b850844c77f3c61b9~mv2.png/v1/crop/x_255,y_10,w_311,h_272/fill/w_230,h_206,al_c,q_85/premios.png" alt="" loading="lazy" style="left:82px;top:2846px;width:115px;height:103px">
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_307f4a55afa3496b850844c77f3c61b9~mv2.png/v1/crop/x_0,y_279,w_565,h_267/fill/w_418,h_204,al_c,q_85/premios.png" alt="" loading="lazy" style="left:197px;top:2839px;width:209px;height:102px">
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_307f4a55afa3496b850844c77f3c61b9~mv2.png/v1/crop/x_529,y_164,w_194,h_194/fill/w_188,h_206,al_c,q_85/premios.png" alt="" loading="lazy" style="left:379px;top:2842px;width:94px;height:103px">
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_307f4a55afa3496b850844c77f3c61b9~mv2.png/v1/crop/x_529,y_3,w_194,h_174/fill/w_230,h_206,al_c,q_85/premios.png" alt="" loading="lazy" style="left:443px;top:2846px;width:115px;height:103px">
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_307f4a55afa3496b850844c77f3c61b9~mv2.png/v1/crop/x_531,y_342,w_194,h_210/fill/w_230,h_260,al_c,q_85/premios.png" alt="" loading="lazy" style="left:537px;top:2822px;width:115px;height:130px">
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_307f4a55afa3496b850844c77f3c61b9~mv2.png/v1/crop/x_711,y_121,w_419,h_251/fill/w_352,h_232,al_c,q_85/premios.png" alt="" loading="lazy" style="left:649px;top:2829px;width:176px;height:116px">
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_307f4a55afa3496b850844c77f3c61b9~mv2.png/v1/crop/x_711,y_0,w_422,h_156/fill/w_244,h_86,al_c,q_85/premios.png" alt="" loading="lazy" style="left:851px;top:2846px;width:122px;height:43px">
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_307f4a55afa3496b850844c77f3c61b9~mv2.png/v1/crop/x_723,y_376,w_392,h_162/fill/w_272,h_128,al_c,q_85/premios.png" alt="" loading="lazy" style="left:844px;top:2875px;width:136px;height:64px">
+    </article></div>
+  </div>
+  <div class="pop" id="popup-s6rir" role="dialog" aria-modal="true" aria-labelledby="t-s6rir" hidden>
+    <div class="pop__bg"></div>
+    <button type="button" class="pop__close" aria-label="Voltar ao site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M21 3L3 21"/></svg></button>
+    <div class="pop__scroll"><article class="pop__body" style="height:3851px">
+      <span class="pop__tag">#advertising</span>
+      <h2 class="pop__title" id="t-s6rir">Akasha: Moda, Música &amp; AI</h2>
+      <p class="pop__sub">Som e tecnologia em sintonia na passarela de Irina Voinea</p>
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_e5cafafa822c4091a198ad4faebe4e29~mv2.jpeg/v1/crop/x_0,y_509,w_1367,h_914/fill/w_1958,h_1108,al_c,q_85/akasha.jpeg" alt="Desfile Akasha" loading="lazy" style="left:0;top:225px;width:979px;height:554px">
+      <p class="pop__p" style="left:0px;top:809px;width:979px">A estilista romena Irina Voinea lançou sua coleção “Akasha” em um desfile na Biblioteca Nacional de Bucareste, trazendo à passarela um universo dividido em cinco capítulos - Origin, Embodiment, Mission, Journey &amp; Awakening.</p>
+      <p class="pop__p" style="left:0px;top:919px;width:460px">Para acompanhar essa narrativa, a trilha sonora precisava guiar o público por uma jornada, equilibrando a força ritualística com uma estética futurista.<br><br>O processo foi marcado pela colaboração próxima com a estilista, que trouxe referências que iam do tribal ao eletrônico, passando por arranjos orquestrados e artistas do leste europeu.<br><br>A missão era unir o espiritual e o fashion em um resultado sofisticado, mas acessível para o ambiente da moda.<br><br>Um dos diferenciais foi a utilização de inteligência artificial. Longe de ser a protagonista, a IA entrou como mais um colaborador, oferecendo arranjos e texturas a partir de prompts e interações. Cada sugestão era tratada como ponto de partida: editada, reprocessada e integrada à composição final. O trabalho humano foi essencial tanto no controle da narrativa sonora quanto em pontos-chave, como a criação da percussão tribal, que carregava a energia da referência original.</p>
+      <video class="pop__abs pop__vid" controls playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_3f49887f6e434b539f77048f8213d33df000.jpg/v1/fill/w_920,h_1600,al_c,q_85/f.jpg" style="left:520px;top:919px;width:460px;height:800px"><source src="https://video.wixstatic.com/video/afd2d5_3f49887f6e434b539f77048f8213d33d/720p/mp4/file.mp4" type="video/mp4"></video>
+      <video class="pop__abs pop__vid" controls playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_6ff39d5139824bb59be60d7d9f7ae8e2f000.jpg/v1/fill/w_920,h_1600,al_c,q_85/f.jpg" style="left:0;top:1675px;width:460px;height:800px"><source src="https://video.wixstatic.com/video/afd2d5_6ff39d5139824bb59be60d7d9f7ae8e2/720p/mp4/file.mp4" type="video/mp4"></video>
+      <p class="pop__p" style="left:520px;top:1935px;width:460px">No desfile, a trilha funcionou como fio condutor da experiência. Cada capítulo da coleção tinha seu clima próprio, mas a música manteve uma unidade que ajudava a guiar o ritmo da passarela.<br><br>O ponto alto veio no encerramento: o último look, feito de fibras óticas iluminadas, ganhou ainda mais impacto com a música em tom épico, em meio à penumbra do espaço.</p>
+      <p class="pop__p" style="left:0px;top:2520px;width:980px">.Depois do evento, partes da trilha ainda ganharam novos desdobramentos em conteúdos oficiais da marca, incluindo uma colaboração com a BMW para social media.Mais do que um exercício de tecnologia, “Akasha” foi um exemplo de como a IA pode somar ao processo criativo quando usada com propósito e curadoria. A ferramenta abriu novas possibilidades, mas o resultado veio da combinação entre experimentação tecnológica e craft humano.</p>
+      <video class="pop__abs pop__vid" controls playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_6b85b68b1d8647eeb6472649ced4da63f000.jpg/v1/fill/w_920,h_1600,al_c,q_85/f.jpg" style="left:0;top:2710px;width:460px;height:800px"><source src="https://video.wixstatic.com/video/afd2d5_6b85b68b1d8647eeb6472649ced4da63/720p/mp4/file.mp4" type="video/mp4"></video>
+      <video class="pop__abs pop__vid" controls playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_e8637d5992554d0593a6695bc64980d1f000.jpg/v1/fill/w_920,h_1600,al_c,q_85/f.jpg" style="left:520px;top:2710px;width:460px;height:800px"><source src="https://video.wixstatic.com/video/afd2d5_e8637d5992554d0593a6695bc64980d1/720p/mp4/file.mp4" type="video/mp4"></video>
+    </article></div>
+  </div>
+  <div class="pop" id="popup-xdkvs" role="dialog" aria-modal="true" aria-labelledby="t-xdkvs" hidden>
+    <div class="pop__bg"></div>
+    <button type="button" class="pop__close" aria-label="Voltar ao site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M21 3L3 21"/></svg></button>
+    <div class="pop__scroll"><article class="pop__body" style="height:2819px">
+      <span class="pop__tag">#advertising</span>
+      <h2 class="pop__title" id="t-xdkvs">Prenúncio: tensão que se pode ouvir</h2>
+      <p class="pop__sub">Som ambienta a narrativa em um curta de terror premiado</p>
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_3d60b380c898475c8e3f493fae56a7d4~mv2.jpg/v1/crop/x_0,y_779,w_2025,h_1441/fill/w_978,h_696,al_c,q_80/prenuncioposter.jpg" alt="Cartaz de Prenúncio" loading="lazy" style="left:0;top:225px;width:489px;height:348px">
+      <p class="pop__p" style="left:533px;top:230px;width:447px">No curta-metragem Prenúncio, dirigido por Felipe Cunha, o terror encontra no som um de seus pilares mais sólidos. A produção, que rendeu ao filme o prêmio de Best Sound Design no Paris Film Festival, é um case exemplar de como o áudio pode ser responsável não apenas por criar tensão, mas pela construção de toda a atmosfera &nbsp;que trabalha junto com a narrativa.<br><br>Com roteiro de Guilherme Schmidt, a trama acompanha uma jovem professora que aceita lecionar em uma antiga escola — a histórica Escola Municipal Gonçalves Dias, em São</p>
+      <p class="pop__p" style="left:0px;top:615px;width:980px">Cristóvão — e descobre segredos sombrios do passado a partir de um misterioso caderno de desenhos perturbadores. Nesse contexto, o som é responsável por comunicar muito além do visível: a tensão nos corredores vazios, a estranheza das ambiências, a presença de algo que nunca se mostra por completo.</p>
+      <video class="pop__abs pop__vid" controls playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_6c42ec5e53ce4c66af7850e559e4ae67f001.jpg/v1/fill/w_1960,h_1104,al_c,q_85/f.jpg" style="left:0;top:742px;width:980px;height:552px"><source src="https://video.wixstatic.com/video/afd2d5_6c42ec5e53ce4c66af7850e559e4ae67/1080p/mp4/file.mp4" type="video/mp4"></video>
+      <p class="pop__p" style="left:0px;top:1331px;width:447px">A proposta estética de Felipe Cunha exigia equilíbrio: texturas surreais que evocam o sobrenatural, contrastando com sons diegéticos que deveriam soar incrivelmente naturais. Todos os elementos sempre guiados por uma lógica interna que orienta cada detalhe do universo do filme. O foley ganhou um cuidado especial para preservar essa verossimilhança e todo o diálogo foi reconstruído na pós, em um trabalho meticuloso de ADR, onde as falas foram dubladas</p>
+      <img class="pop__abs" src="https://static.wixstatic.com/media/afd2d5_045ac16742b74c0aa14373066b9e794d~mv2.jpg/v1/crop/x_246,y_66,w_1914,h_1075/fill/w_932,h_524,al_c,q_80/prenuncio.jpg" alt="Cena de Prenúncio" loading="lazy" style="left:513px;top:1331px;width:466px;height:262px">
+      <p class="pop__p" style="left:0px;top:1619px;width:980px">dubladas pelos atores, para que cada respiração e gaguejar de hesitação soasse perfeito.<br><br>Na fronteira do real com o imaginário, o sound design explorou sintetizadores, drones, texturas ruidosas e vozes processadas, criando um terreno subjetivo que convive com a trilha original composta por Victor Huggo, garantindo que a tensão se amplificasse e retraísse, sempre em alinhamento à cadência narrativa e flertando com o silêncio calculado que antecede o susto.</p>
+      <video class="pop__abs pop__vid" controls playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_13809568b13f4715ab4b4cccfd5410def002.jpg/v1/fill/w_1960,h_1108,al_c,q_85/f.jpg" style="left:0;top:1826px;width:980px;height:554px"><source src="https://video.wixstatic.com/video/afd2d5_13809568b13f4715ab4b4cccfd5410de/1080p/mp4/file.mp4" type="video/mp4"></video>
+      <p class="pop__p" style="left:0px;top:2414px;width:980px">Além do prêmio em Paris, Prenúncio também levou Best Director no Montreal Independent Film Festival, Best Horror no Venice Shorts, e foi reconhecido como Melhor Filme de Terror em Roma.<br>Mais do que a técnica, esse projeto foi marcado pela ausência de concessões e para a Lake, a conquista tem sabor especial. Mais do que perseguir prêmios, a missão era simples: entregar um som digno de cinema. O resultado mostra que quando se investe em um processo completo e cuidadoso, o som deixa de ser apenas coadjuvante para se tornar protagonista na experiência do espectador.</p>
+      <div class="award" style="left:12px;top:2629px"><img src="https://static.wixstatic.com/media/afd2d5_d4742c1c65e34106bb6a8367e1305db3~mv2.png/v1/crop/x_0,y_0,w_400,h_656/fill/w_164,h_270,al_c,q_85/louro.png" alt="" loading="lazy"><img src="https://static.wixstatic.com/media/afd2d5_d4742c1c65e34106bb6a8367e1305db3~mv2.png/v1/crop/x_336,y_0,w_400,h_656/fill/w_164,h_270,al_c,q_85/louro.png" alt="" loading="lazy"><strong>Best Director</strong><span>Montreal<br>Independent<br>Film Festival</span></div>
+      <div class="award" style="left:259px;top:2629px"><img src="https://static.wixstatic.com/media/afd2d5_d4742c1c65e34106bb6a8367e1305db3~mv2.png/v1/crop/x_0,y_0,w_400,h_656/fill/w_164,h_270,al_c,q_85/louro.png" alt="" loading="lazy"><img src="https://static.wixstatic.com/media/afd2d5_d4742c1c65e34106bb6a8367e1305db3~mv2.png/v1/crop/x_336,y_0,w_400,h_656/fill/w_164,h_270,al_c,q_85/louro.png" alt="" loading="lazy"><strong>Best Horror</strong><span>Montreal<br>Independent<br>Film Festival</span></div>
+      <div class="award" style="left:509px;top:2629px"><img src="https://static.wixstatic.com/media/afd2d5_d4742c1c65e34106bb6a8367e1305db3~mv2.png/v1/crop/x_0,y_0,w_400,h_656/fill/w_164,h_270,al_c,q_85/louro.png" alt="" loading="lazy"><img src="https://static.wixstatic.com/media/afd2d5_d4742c1c65e34106bb6a8367e1305db3~mv2.png/v1/crop/x_336,y_0,w_400,h_656/fill/w_164,h_270,al_c,q_85/louro.png" alt="" loading="lazy"><strong>Best<br>Sound Design</strong><span>Paris<br>Film Festival</span></div>
+      <div class="award" style="left:757px;top:2629px"><img src="https://static.wixstatic.com/media/afd2d5_d4742c1c65e34106bb6a8367e1305db3~mv2.png/v1/crop/x_0,y_0,w_400,h_656/fill/w_164,h_270,al_c,q_85/louro.png" alt="" loading="lazy"><img src="https://static.wixstatic.com/media/afd2d5_d4742c1c65e34106bb6a8367e1305db3~mv2.png/v1/crop/x_336,y_0,w_400,h_656/fill/w_164,h_270,al_c,q_85/louro.png" alt="" loading="lazy"><strong>Best Horror</strong><span>Venice Shorts Film Festival</span></div>
+    </article></div>
+  </div>
+
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="icon-play" viewBox="0 0 200 200"><path d="M99.833 29c39.059 0 70.834 31.775 70.834 70.833 0 39.059-31.775 70.834-70.834 70.834C60.775 170.667 29 138.892 29 99.833 29 60.775 60.775 29 99.833 29Zm0 8.333c-34.466 0-62.5 28.034-62.5 62.5 0 34.467 28.034 62.5 62.5 62.5 34.467 0 62.5-28.033 62.5-62.5 0-34.466-28.033-62.5-62.5-62.5ZM85.367 71.162a4.13 4.13 0 0 1 4.275.208l37.5 24.992A4.146 4.146 0 0 1 129 99.828a4.157 4.157 0 0 1-1.858 3.467l-37.5 25.008c-.692.459-1.5.7-2.309.7-.675 0-1.35-.166-1.966-.5a4.168 4.168 0 0 1-2.2-3.666v-50c0-1.542.85-2.95 2.2-3.675ZM91.5 82.62v34.425l25.825-17.217L91.5 82.62Z" fill-rule="evenodd"/></symbol></svg>
-  <script src="assets/js/main.js?v=2" defer></script>
+  <script src="assets/js/main.js?v=3" defer></script>
 </body>
 </html>
