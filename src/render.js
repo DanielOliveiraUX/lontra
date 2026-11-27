@@ -2,7 +2,7 @@
 import home from "./templates/home.html";
 import portfolio from "./templates/portfolio.html";
 
-export const VERSAO_ASSETS = "20";
+export const VERSAO_ASSETS = "21";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const VIDEO = /\.(mp4|webm|mov|m4v)(\?|$)/i;

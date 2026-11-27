@@ -262,7 +262,7 @@
 
   // ---------- fotos e vídeos ----------
   async function carregarMidia(forcar) {
-    if (!estado.midia || forcar) estado.midia = await api("midia");
+    if (!estado.midia || forcar) { const r = await api("midia"); estado.midia = r.itens; estado.espaco = { usado: r.usado, limite: r.limite }; }
     return estado.midia;
   }
   function enviarArquivos(arquivos, aoTerminar) {
@@ -594,7 +594,16 @@
   function telaMidia(alvo) {
     const lista = h("div", {}, h("p", { class: "dica" }, "Carregando…"));
     const montar = async (forcar) => {
-      try { lista.replaceChildren(gradeBiblioteca(await carregarMidia(forcar), null)); }
+      try {
+        const itens = await carregarMidia(forcar);
+        const e = estado.espaco, pct = Math.min(100, Math.round((e.usado / e.limite) * 100));
+        lista.replaceChildren(
+          h("div", { class: "cartao", style: { marginBottom: "18px" } },
+            h("b", {}, "Espaço usado: ", tamanho(e.usado), " de ", tamanho(e.limite), " (", pct, "%)"),
+            h("div", { class: "progresso" }, h("i", { style: { width: pct + "%", background: pct > 85 ? "var(--danger)" : "" } })),
+            h("small", { class: "dica" }, "Vídeos ocupam mais espaço. Reduzir para 720p antes de enviar economiza bastante.")),
+          gradeBiblioteca(itens, null));
+      }
       catch (e) { lista.replaceChildren(h("p", { class: "erro-msg" }, e.message)); }
     };
     alvo.append(
@@ -609,14 +618,16 @@
     const botao = h("button", { class: "btn btn--pri", type: "button", onclick: async () => {
       if (alterado()) { avisar("Publique ou descarte as alterações antes de migrar.", "erro"); return; }
       botao.disabled = true;
-      let total = 0;
+      let total = 0; const pular = [];
       try {
-        for (let rodada = 0; rodada < 60; rodada++) {
-          const r = await api("migrar-wix", { method: "POST", body: {} });
+        for (let rodada = 0; rodada < 200; rodada++) {
+          const r = await api("migrar-wix", { method: "POST", body: { pular } });
           total += r.copiados;
-          status.textContent = `${total} arquivos copiados, faltam ${r.faltam}.` + (r.falhas.length ? ` Falhas: ${r.falhas.length}.` : "");
-          if (!r.faltam || (!r.copiados && r.falhas.length)) { if (r.falhas.length) console.warn(r.falhas); break; }
+          r.falhas.forEach((f) => pular.push(f.url));
+          status.textContent = `${total} arquivos copiados, faltam ${r.faltam - r.falhas.length}.` + (pular.length ? ` Não deu para copiar: ${pular.length} (veja o console).` : "");
+          if (r.faltam - r.falhas.length <= 0) break;
         }
+        if (pular.length) console.warn("Não copiados:", pular);
         const c = await api("conteudo"); estado.publicado = c; estado.rascunho = clone(c); estado.midia = null;
         avisar("Migração concluída.", "ok");
       } catch (e) { avisar(e.message, "erro"); }

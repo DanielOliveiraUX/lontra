@@ -2,7 +2,7 @@
   // Lake — site e gestão num Worker só.
   // Único segredo obrigatório: SENHA_DESENVOLVEDOR, cadastrado na Cloudflare como "secret"
   // (Worker → Configurações → Variáveis e segredos). A senha do cliente é criada pelo painel.
-  // O banco (D1) e o armazenamento de mídia (R2) não levam ID: o primeiro deploy cria os dois
+  // O banco (D1) e o armazenamento de mídia (KV) não levam ID: o primeiro deploy cria os dois
   // sozinho (provisionamento automático do Wrangler) e as tabelas nascem no primeiro acesso.
   "name": "lake",
   "main": "src/worker.js",
@@ -18,8 +18,9 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "lake", "migrations_dir": "migrations" }
   ],
-  "r2_buckets": [
-    { "binding": "MIDIA", "bucket_name": "lake-midia" }
+  // Fotos e vídeos ficam no KV (incluído no plano grátis, sem cartão): até 1 GB no total.
+  "kv_namespaces": [
+    { "binding": "MIDIA_KV" }
   ],
   "observability": { "enabled": true }
 }

@@ -10,7 +10,7 @@ Roda num Worker da Cloudflare:
 |---|---|
 | Páginas (Home e Portfolio) | montadas na hora por `src/render.js`, a partir do conteúdo |
 | Conteúdo e usuários | banco D1 `lake` (cada publicação vira uma versão; as 40 últimas ficam no histórico) |
-| Fotos e vídeos | R2 `lake-midia`, servidos em `/media/...` |
+| Fotos e vídeos | KV `MIDIA_KV` (plano grátis, sem cartão, até 1 GB), em partes de 8 MB, servidos em `/media/...`; índice na tabela `midia` do D1 |
 | Gestão | `public/gestao/` (HTML + JS, sem dependências) |
 | Lápis no site | `public/assets/js/editar.js`, carregado só para quem está logado |
 
@@ -18,16 +18,17 @@ Publicar = salvar: não há build. A mudança aparece no site na hora.
 
 ## Ligar na Cloudflare (uma vez)
 
-1. **Ativar o R2** na conta: painel da Cloudflare → R2 → aceitar os termos (o plano grátis tem 10 GB).
-2. **Criar o Worker a partir do GitHub**: Workers & Pages → Criar → Importar um repositório →
+Nada aqui pede cartão de crédito: D1, KV e Workers estão no plano grátis.
+
+1. **Criar o Worker a partir do GitHub**: Workers & Pages → Criar → Importar um repositório →
    `lontra`, ramo `cloudflare`. Comando de deploy: `npx wrangler deploy` (é o padrão).
-   O primeiro deploy cria sozinho o banco D1 e o R2; as tabelas nascem no primeiro acesso.
-3. **Cadastrar a senha do desenvolvedor**: no Worker → Configurações → Variáveis e segredos →
+   O primeiro deploy cria sozinho o banco D1 e o KV; as tabelas nascem no primeiro acesso.
+2. **Cadastrar a senha do desenvolvedor**: no Worker → Configurações → Variáveis e segredos →
    Adicionar → tipo *Secret*, nome `SENHA_DESENVOLVEDOR`, valor = sua senha.
-4. Abrir `https://<endereço do worker>/gestao/`, entrar com login `daniel` e a senha do passo 3.
-5. Em **Acessos**, clicar em **Criar senha** para o cliente (login `lake`) e enviar a senha a ele.
-6. Em **Fotos e vídeos**, clicar em **Copiar mídia do Wix para a Cloudflare** e esperar terminar.
-7. (Opcional) Ligar o domínio próprio em Worker → Configurações → Domínios e rotas.
+3. Abrir `https://<endereço do worker>/gestao/`, entrar com login `daniel` e a senha do passo 2.
+4. Em **Acessos**, clicar em **Criar senha** para o cliente (login `lake`) e enviar a senha a ele.
+5. Em **Fotos e vídeos**, clicar em **Copiar mídia do Wix para a Cloudflare** e esperar terminar.
+6. (Opcional) Ligar o domínio próprio em Worker → Configurações → Domínios e rotas.
 
 ## Quem entra
 
@@ -51,3 +52,9 @@ npm run dev        # http://localhost:8787  (gestão em /gestao/)
 
 O HTML e o CSS do desktop (980px ou mais) são os mesmos da versão estática; abaixo de 980px vale o layout
 responsivo de `public/assets/css/style.css` (bloco "Celular e tablet").
+
+## Limites do plano grátis (o que importa aqui)
+
+- Fotos e vídeos: até ~950 MB no total (a gestão mostra o espaço usado e recusa envio acima disso).
+- Até 1.000 gravações por dia no KV: cada 8 MB enviados contam 1. Um vídeo de 40 MB = 5.
+- Envio de arquivo de até ~95 MB por vez.

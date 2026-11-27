@@ -31,3 +31,15 @@ CREATE TABLE IF NOT EXISTS config (
   chave TEXT PRIMARY KEY,
   valor TEXT NOT NULL
 );
+
+-- Índice das fotos e vídeos. Os bytes ficam no KV (MIDIA_KV), em partes de até 8 MB.
+CREATE TABLE IF NOT EXISTS midia (
+  chave   TEXT PRIMARY KEY,
+  nome    TEXT NOT NULL,
+  tipo    TEXT NOT NULL,
+  tamanho INTEGER NOT NULL,
+  partes  INTEGER NOT NULL,
+  autor   TEXT NOT NULL,
+  origem  TEXT NOT NULL DEFAULT '',
+  enviado TEXT NOT NULL
+);

@@ -87,24 +87,85 @@ const registrarErro = (env, chave) => env.DB.batch([
 const TIPOS_OK = /^(image\/(jpeg|png|webp|gif|avif|svg\+xml)|video\/(mp4|webm|quicktime))$/;
 const EXT = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif", "image/avif": "avif", "image/svg+xml": "svg", "video/mp4": "mp4", "video/webm": "webm", "video/quicktime": "mov" };
 
-async function servirMidia(req, env, chave) {
-  if (!env.MIDIA) return new Response("Sem armazenamento de mídia", { status: 404 });
-  const obj = await env.MIDIA.get(chave, { range: req.headers, onlyIf: req.headers });
-  if (!obj) return new Response("Arquivo não encontrado", { status: 404 });
-  const h = new Headers();
-  obj.writeHttpMetadata(h);
-  h.set("etag", obj.httpEtag);
-  h.set("Accept-Ranges", "bytes");
-  h.set("Cache-Control", "public, max-age=31536000, immutable");
-  if (!("body" in obj) || !obj.body) return new Response(null, { status: 304, headers: h });
-  if (obj.range && req.headers.has("range")) {
-    const { offset = 0, length = obj.size - offset } = obj.range;
-    h.set("Content-Range", `bytes ${offset}-${offset + length - 1}/${obj.size}`);
-    h.set("Content-Length", String(length));
-    return new Response(obj.body, { status: 206, headers: h });
+// Fotos e vídeos no KV, em partes de 8 MB (o KV aceita até 25 MB por valor).
+const PARTE = 8 * 1024 * 1024;
+const LIMITE_TOTAL = 950 * 1024 * 1024; // o plano grátis do KV guarda 1 GB
+
+async function espacoUsado(env) {
+  const r = await env.DB.prepare("SELECT COALESCE(SUM(tamanho), 0) t FROM midia").first();
+  return r.t;
+}
+
+// Lê o corpo (stream) e grava em partes. Devolve o tamanho total.
+async function guardarMidia(env, chave, corpo, info) {
+  if (!env.MIDIA_KV) throw new Error("O armazenamento de mídia ainda não foi ligado.");
+  const leitor = corpo.getReader();
+  let buf = new Uint8Array(PARTE), usado = 0, parte = 0, total = 0;
+  const livre = LIMITE_TOTAL - (await espacoUsado(env));
+  const gravar = async () => {
+    if (!usado) return;
+    await env.MIDIA_KV.put(`p:${chave}:${parte++}`, buf.slice(0, usado));
+    usado = 0;
+  };
+  for (;;) {
+    const { done, value } = await leitor.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > livre) {
+      for (let i = 0; i < parte; i++) await env.MIDIA_KV.delete(`p:${chave}:${i}`);
+      throw new Error("O espaço de fotos e vídeos do site acabou (1 GB). Apague arquivos sem uso ou envie versões menores.");
+    }
+    let off = 0;
+    while (off < value.byteLength) {
+      const n = Math.min(PARTE - usado, value.byteLength - off);
+      buf.set(value.subarray(off, off + n), usado);
+      usado += n; off += n;
+      if (usado === PARTE) await gravar();
+    }
   }
-  h.set("Content-Length", String(obj.size));
-  return new Response(obj.body, { headers: h });
+  await gravar();
+  if (!total) throw new Error("Arquivo vazio.");
+  await env.DB.prepare("INSERT OR REPLACE INTO midia (chave, nome, tipo, tamanho, partes, autor, origem, enviado) VALUES (?,?,?,?,?,?,?,?)")
+    .bind(chave, info.nome, info.tipo, total, parte, info.autor, info.origem || "", new Date().toISOString()).run();
+  return total;
+}
+
+async function servirMidia(req, env, chave) {
+  const m = env.DB && (await env.DB.prepare("SELECT * FROM midia WHERE chave = ?").bind(chave).first());
+  if (!m || !env.MIDIA_KV) return new Response("Arquivo não encontrado", { status: 404 });
+  const h = new Headers({ "Content-Type": m.tipo, "Accept-Ranges": "bytes", "Cache-Control": "public, max-age=31536000, immutable", ETag: `"${chave}"` });
+  if (req.headers.get("If-None-Match") === `"${chave}"`) return new Response(null, { status: 304, headers: h });
+  const ler = (i) => env.MIDIA_KV.get(`p:${chave}:${i}`, { type: "arrayBuffer", cacheTtl: 86400 });
+  const faixa = (req.headers.get("Range") || "").match(/^bytes=(\d*)-(\d*)$/);
+  if (faixa && (faixa[1] || faixa[2])) {
+    let ini, fim;
+    if (faixa[1] === "") { ini = Math.max(0, m.tamanho - Number(faixa[2])); fim = m.tamanho - 1; }
+    else { ini = Number(faixa[1]); fim = faixa[2] ? Math.min(Number(faixa[2]), m.tamanho - 1) : m.tamanho - 1; }
+    if (ini >= m.tamanho || ini > fim) return new Response(null, { status: 416, headers: { "Content-Range": `bytes */${m.tamanho}` } });
+    // faixa aberta ("bytes=N-"): devolve até o fim da parte; o navegador pede o resto depois.
+    // faixa fechada: devolve exatamente o pedido (até 2 partes), como o Safari espera.
+    const i = Math.floor(ini / PARTE);
+    fim = Math.min(fim, faixa[2] ? (i + 2) * PARTE - 1 : (i + 1) * PARTE - 1);
+    const j = Math.floor(fim / PARTE);
+    const bufs = [];
+    for (let k = i; k <= j; k++) { const d = await ler(k); if (!d) return new Response("Parte do arquivo não encontrada", { status: 500 }); bufs.push(new Uint8Array(d)); }
+    const junto = bufs.length === 1 ? bufs[0] : (() => { const t = new Uint8Array(bufs.reduce((a, b) => a + b.byteLength, 0)); let o = 0; for (const b of bufs) { t.set(b, o); o += b.byteLength; } return t; })();
+    const pedaco = junto.slice(ini - i * PARTE, fim - i * PARTE + 1);
+    h.set("Content-Range", `bytes ${ini}-${fim}/${m.tamanho}`);
+    h.set("Content-Length", String(pedaco.byteLength));
+    return new Response(pedaco, { status: 206, headers: h });
+  }
+  h.set("Content-Length", String(m.tamanho));
+  let i = 0;
+  const corpo = new ReadableStream({
+    async pull(ctrl) {
+      if (i >= m.partes) return ctrl.close();
+      const d = await ler(i++);
+      if (!d) return ctrl.error(new Error("parte faltando"));
+      ctrl.enqueue(new Uint8Array(d));
+    },
+  });
+  return new Response(corpo, { headers: h });
 }
 
 // ---------------- migração do Wix ----------------
@@ -200,24 +261,18 @@ async function api(req, env, url) {
   }
 
   if (rota === "midia" && m === "GET") {
-    if (!env.MIDIA) return json([]);
-    const itens = [];
-    let cursor;
-    do {
-      const r = await env.MIDIA.list({ cursor, include: ["httpMetadata", "customMetadata"] });
-      for (const o of r.objects) itens.push({ url: `/media/${o.key}`, chave: o.key, tamanho: o.size, enviado: o.uploaded, tipo: o.httpMetadata?.contentType || "", nome: o.customMetadata?.nome || o.key.split("/").pop() });
-      cursor = r.truncated ? r.cursor : null;
-    } while (cursor && itens.length < 2000);
-    itens.sort((a, b) => new Date(b.enviado) - new Date(a.enviado));
-    return json(itens);
+    const r = await env.DB.prepare("SELECT chave, nome, tipo, tamanho, enviado FROM midia ORDER BY enviado DESC").all();
+    return json({ usado: await espacoUsado(env), limite: LIMITE_TOTAL,
+      itens: r.results.map((o) => ({ url: `/media/${o.chave}`, chave: o.chave, nome: o.nome, tipo: o.tipo, tamanho: o.tamanho, enviado: o.enviado })) });
   }
   if (rota === "midia" && m === "PUT") {
-    if (!env.MIDIA) return erro("O armazenamento de mídia (R2) ainda não foi ligado.", 500);
     const tipo = (req.headers.get("Content-Type") || "").split(";")[0].trim().toLowerCase();
     if (!TIPOS_OK.test(tipo)) return erro("Formato não aceito. Envie JPG, PNG, WEBP, GIF ou vídeo MP4.");
+    if (!req.body) return erro("Arquivo vazio.");
     const nome = limparTexto(url.searchParams.get("nome") || "arquivo").slice(0, 120);
     const chave = `up/${Date.now().toString(36)}-${slug(nome.replace(/\.[^.]+$/, ""))}.${EXT[tipo]}`;
-    await env.MIDIA.put(chave, req.body, { httpMetadata: { contentType: tipo }, customMetadata: { nome, autor: u.login } });
+    try { await guardarMidia(env, chave, req.body, { nome, tipo, autor: u.login }); }
+    catch (e) { return erro(e.message, 413); }
     return json({ ok: true, url: `/media/${chave}` });
   }
 
@@ -256,19 +311,20 @@ async function api(req, env, url) {
     return json({ ok: true });
   }
   if (rota === "migrar-wix" && m === "POST" && dev) {
-    if (!env.MIDIA) return erro("O R2 ainda não foi ligado.", 500);
+    if (!env.MIDIA_KV) return erro("O armazenamento de mídia ainda não foi ligado.", 500);
     const c = await lerConteudo(env);
-    const todas = urlsDoWix(c);
-    const lote = todas.slice(0, 4), mapa = {}, falhas = [];
+    const { pular = [] } = await req.json().catch(() => ({}));
+    const todas = urlsDoWix(c).filter((x) => !pular.includes(x));
+    const lote = todas.slice(0, 2), mapa = {}, falhas = [];
     for (const origem of lote) {
       try {
         const r = await fetch(origem, { headers: { Accept: "image/jpeg,image/png,image/gif,video/mp4,*/*;q=0.5" } });
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        const tipo = (r.headers.get("Content-Type") || "").split(";")[0];
+        const tipo = (r.headers.get("Content-Type") || "").split(";")[0] || "application/octet-stream";
         const chave = await chaveDe(origem, tipo);
-        await env.MIDIA.put(chave, r.body, { httpMetadata: { contentType: tipo || "application/octet-stream" }, customMetadata: { nome: origem.split("/").pop().slice(0, 120), origem: origem.slice(0, 900) } });
+        await guardarMidia(env, chave, r.body, { nome: decodeURIComponent(origem.split("/").pop()).slice(0, 120), tipo, autor: u.login, origem: origem.slice(0, 900) });
         mapa[origem] = `/media/${chave}`;
-      } catch (e) { falhas.push(`${origem} (${e.message})`); }
+      } catch (e) { falhas.push({ url: origem, erro: e.message }); }
     }
     if (Object.keys(mapa).length) {
       const novo = trocarUrls({ ...c, _versao: undefined }, mapa);
