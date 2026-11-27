@@ -1,0 +1,21 @@
+# Versão estática antiga (GitHub Pages), mantida para comparação.
+# O site oficial com gestão roda na Cloudflare a partir de src/ e public/ (ver README).
+title: Lake
+baseurl: "/lontra"
+url: "https://danieloliveiraux.github.io"
+lang: pt-BR
+markdown: kramdown
+collections:
+  projetos:
+    output: false
+  trabalhos:
+    output: false
+exclude:
+  - README.md
+  - src
+  - public
+  - migrations
+  - package.json
+  - package-lock.json
+  - wrangler.jsonc
+  - node_modules
