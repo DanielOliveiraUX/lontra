@@ -54,6 +54,7 @@
         p.el.style.transform = "translate3d(" + t.toFixed(1) + "px,0,0)";
       });
       fades.forEach(function (f) {
+        if (!desk) { f.el.style.opacity = ""; return; }
         var r = f.sec.getBoundingClientRect();
         var pr = progress(r.top, r.height);
         f.el.style.opacity = clamp(1 - 2 * (pr - 0.5), 0, 1).toFixed(3);
