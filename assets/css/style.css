@@ -218,9 +218,9 @@ button.link-arrow { background: none; border: 0; padding: 0; font-family: inheri
 .award { position: relative; flex: none; width: 210px; height: 135px; }
 .award img { position: absolute; top: 0; left: 0; width: 82px; height: 135px; object-fit: cover; background: none; }
 .award img + img { left: 128px; }
-.award strong, .award span { position: absolute; left: 0; right: 0; text-align: center; letter-spacing: 0; }
-.award strong { top: 29px; font-size: 18px; line-height: 21.6px; font-weight: 700; }
-.award span { top: 59px; font-size: 16px; line-height: 19.2px; }
+.award { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 0 38px; text-align: center; letter-spacing: 0; }
+.award strong { position: relative; font-size: 18px; line-height: 21.6px; font-weight: 700; }
+.award span { position: relative; font-size: 16px; line-height: 19.2px; }
 html.has-pop, html.has-pop body { overflow: hidden; }
 
 /* ---------------- Página Portfolio ---------------- */
