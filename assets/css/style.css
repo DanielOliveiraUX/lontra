@@ -1,0 +1,224 @@
+/* Lake — site estático (recriação do Wix "Lake 2025")
+   Desktop: grade fixa de 980px centralizada, como no Editor clássico do Wix. */
+
+:root {
+  --bg: #f9f9f9;
+  --ink: #595959;
+  --ink-dark: #333;
+  --white: #fafafa;
+  --font: "Quicksand", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Azeret Mono", ui-monospace, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-width: 980px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p { margin: 0; font-weight: 400; }
+a { color: inherit; text-decoration: none; }
+img, video { display: block; }
+
+.sec { position: relative; overflow: hidden; background: var(--bg); }
+.grid {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 980px;
+  margin-left: -490px;
+}
+.grid > * { position: absolute; }
+
+/* Vídeo fixo (o fundo de água fica parado enquanto a página rola) */
+.hero, .strip { clip-path: inset(0); background: #6c8e93; }
+.fixed-bg { position: fixed; inset: 0; z-index: 0; }
+.fixed-bg video { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------------- 1. Topo ---------------- */
+.hero { height: 948px; }
+.hero .grid { z-index: 2; }
+.marquee {
+  position: absolute; z-index: 3;
+  left: 0; right: 0; top: 25px;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 12px; line-height: 14.4px;
+  color: var(--white);
+  white-space: nowrap;
+}
+.marquee__track { display: inline-flex; animation: marquee 13s linear infinite; }
+.marquee__track span { flex: none; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+.hero__beach { left: -334.5px; top: 0; width: 1710px; height: 898px; object-fit: cover; pointer-events: none; }
+.hero__logo { left: 373.5px; top: 123px; width: 233px; height: 75px; }
+.hero__logo img { width: 100%; height: 100%; object-fit: cover; }
+.hero__tagline {
+  left: 148.5px; top: 421px; width: 683px;
+  text-align: center;
+  font-size: 56px; line-height: 100.8px;
+  color: var(--white);
+  white-space: nowrap;
+}
+.hero__down { left: 467.5px; top: 786px; width: 34px; height: 35px; }
+.hero__down img { width: 100%; height: 100%; }
+
+.wave {
+  position: absolute; z-index: 2;
+  left: 0; right: 0; height: 100px;
+  background: url("../img/wave.svg") center bottom / 100% 100% no-repeat;
+  pointer-events: none;
+}
+.wave--bottom { bottom: 0; }
+.wave--top { top: 0; transform: scaleY(-1); }
+
+/* ---------------- Textos ---------------- */
+.t-big { font-size: 34px; line-height: 37.4px; letter-spacing: 1.7px; width: 408px; }
+.t-small { font-size: 18px; line-height: 28.8px; letter-spacing: 0.9px; font-weight: 700; width: 414px; }
+.t-bold { font-weight: 700; }
+.t-dark { color: var(--ink-dark); }
+
+.link-arrow {
+  display: flex; align-items: center; gap: 6px;
+  height: 45px;
+  font-size: 18px; font-weight: 700; letter-spacing: 0.9px;
+  color: var(--ink);
+}
+.link-arrow svg { width: 37px; height: 37px; fill: currentColor; flex: none; }
+.link-arrow--light { color: #fff; }
+.link-arrow:hover span { text-decoration: underline; }
+
+/* ---------------- 2. Sobre ---------------- */
+.about { height: 847px; overflow: visible; z-index: 2; }
+.about .grid > p, .about .grid > h2, .about .grid > a { z-index: 2; }
+.vid { width: 476px; height: 277px; padding: 13px 15px 13px 14px; z-index: 1; will-change: transform; }
+.vid__in { position: relative; width: 446px; height: 251px; overflow: hidden; }
+.vid__in video { width: 100%; height: 100%; object-fit: cover; }
+.veil { position: absolute; inset: 0; background: var(--white); }
+
+/* ---------------- 3. Projetos ---------------- */
+.project { height: 817px; z-index: 1; }
+.project--short { height: 797px; }
+.project__bg { position: absolute; top: 0; bottom: 0; left: -5%; width: 110%; will-change: transform; }
+.project__bg img { width: 100%; height: 100%; object-fit: cover; }
+.project__col { left: -178.5px; top: 0; width: 465px; height: 817px; }
+.project--short .project__col { top: -20px; }
+.project__col > * { position: absolute; }
+.project__tag {
+  left: 31px; top: 78px;
+  padding: 2px 5px 5px 2px;
+  background: var(--white);
+  color: var(--ink-dark);
+  font-size: 12px; line-height: 15px; font-weight: 700; letter-spacing: 1.2px;
+}
+.project__title {
+  left: 32px; top: 155px; width: 400px;
+  font-size: 34px; line-height: 37.4px; letter-spacing: 1.7px; font-weight: 700;
+  color: var(--white);
+}
+.project__desc {
+  left: 32px; top: 253px; width: 400px;
+  font-size: 18px; line-height: 28.8px; letter-spacing: 1.8px;
+  color: var(--white);
+}
+.project__more { left: 32px; top: 377px; }
+
+/* ---------------- 4. Contato ---------------- */
+.contact { height: 674px; overflow: visible; z-index: 2; }
+.contact .grid > h2, .contact .grid > p { z-index: 2; }
+.contact__lead {
+  left: 150.5px; top: 104px; width: 679px;
+  text-align: center;
+  font-size: 56px; line-height: 72.8px; letter-spacing: 2.8px;
+}
+.contact__lead b { font-weight: 700; }
+.contact__info {
+  left: 290px; top: 437px; width: 400px;
+  text-align: center;
+  font-size: 18px; line-height: 36px; letter-spacing: 0.9px;
+}
+.contact__info b { font-weight: 700; }
+.contact__info a:hover { text-decoration: underline; }
+
+/* ---------------- Faixa final ---------------- */
+.strip { height: 211px; z-index: 1; }
+.strip__flower { position: absolute; z-index: 2; left: 50%; top: 0; width: 2500px; height: 206px; margin-left: -1250px; object-fit: cover; }
+
+/* ---------------- Fixos ---------------- */
+.dots {
+  position: fixed; z-index: 20;
+  right: 26px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 66.6px;
+}
+.dots a { display: block; width: 26px; height: 26px; }
+.dots svg { width: 100%; height: 100%; overflow: visible; }
+.dots .o { fill: none; stroke: #c7c7c7; stroke-width: 2px; opacity: 0; transition: opacity .3s; }
+.dots .m { fill: none; stroke: #7e9d98; stroke-width: 2px; }
+.dots .i { fill: #c7c7c7; transition: fill .3s; }
+.dots a.is-active .o { opacity: .75; }
+.dots a.is-active .i, .dots a:hover .i { fill: #7e9d98; stroke: #7e9d98; }
+
+.btn-portfolio {
+  position: fixed; z-index: 20;
+  right: 30px; bottom: 60px;
+  width: 200px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(232, 230, 230, 0.2);
+  border: 1px solid var(--white);
+  border-radius: 3px;
+  color: var(--white);
+  font-size: 18px; font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+}
+.btn-portfolio.is-visible { pointer-events: auto; }
+.btn-portfolio:hover { background: rgba(232, 230, 230, 0.4); }
+
+/* ---------------- Animações de entrada ---------------- */
+.fx { transition-property: opacity, filter, clip-path, transform; transition-timing-function: cubic-bezier(.25,.46,.45,.94); }
+.fx-fade { opacity: 0; transition-duration: 1.2s; }
+.fx-blur6 { opacity: 0; filter: blur(6px); transition-duration: 1.4s; }
+.fx-blur25 { filter: blur(25px); transition-duration: 1.5s; }
+.fx-clip { clip-path: inset(50%); transition-duration: 1.2s; }
+.fx-wipe { clip-path: inset(0 0 0 100%); transition-duration: 1.6s; }
+.fx-reveal-up { clip-path: inset(100% 0 0 0); transition-duration: 1.2s; }
+.fx.is-in { opacity: 1; filter: none; clip-path: inset(0); }
+.fx-wipe.is-in { clip-path: inset(0 0 0 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx { opacity: 1 !important; filter: none !important; clip-path: none !important; transition: none !important; }
+  .marquee__track { animation: none; }
+}
+
+/* ---------------- Celular (adaptação provisória) ---------------- */
+@media (max-width: 760px) {
+  body { min-width: 0; }
+  .grid { position: relative; left: 0; width: auto; margin: 0; padding: 0 24px; }
+  .grid > * { position: relative; left: auto !important; top: auto !important; width: auto; }
+  .hero { height: 100svh; min-height: 560px; }
+  .hero .grid { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+  .hero__beach { display: none; }
+  .hero__logo { width: 180px; height: 58px; }
+  .hero__tagline { white-space: normal; font-size: 34px; line-height: 1.3; width: auto; }
+  .hero__down { position: absolute !important; bottom: 120px; }
+  .about, .contact { height: auto; padding: 56px 0; }
+  .about .grid, .contact .grid { display: flex; flex-direction: column; gap: 28px; }
+  .about .vid, .contact .vid { display: none; }
+  .t-big { font-size: 26px; line-height: 1.25; }
+  .project, .project--short { height: 80svh; min-height: 520px; }
+  .project__col { position: absolute !important; inset: 0; width: auto; height: auto; padding: 56px 24px; }
+  .project__col > * { position: relative; left: auto; top: auto; display: block; margin-bottom: 20px; }
+  .project__tag { display: inline-block; }
+  .project__title { width: auto; font-size: 28px; line-height: 1.2; }
+  .project__desc { width: auto; }
+  .contact__lead { font-size: 32px; line-height: 1.3; letter-spacing: 1px; width: auto; }
+  .contact__info { width: auto; }
+  .dots { display: none; }
+  .btn-portfolio { right: 16px; bottom: 24px; width: 170px; height: 40px; font-size: 16px; }
+}
