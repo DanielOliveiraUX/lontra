@@ -1,0 +1,6 @@
+{%- assign _ext = include.u | split: '?' | first | split: '.' | last | downcase -%}
+{%- if _ext == 'mp4' or _ext == 'webm' or _ext == 'mov' or _ext == 'm4v' -%}
+<video class="{{ include.cls }}" {% if include.auto %}autoplay muted loop playsinline{% else %}controls playsinline preload="none"{% endif %}{% if include.capa and include.capa != '' %} poster="{% include url.html u=include.capa %}"{% endif %}><source src="{% include url.html u=include.u %}"></video>
+{%- elsif include.u and include.u != '' -%}
+<img class="{{ include.cls }}" src="{% include url.html u=include.u %}" alt="{{ include.alt | escape }}" loading="lazy">
+{%- endif -%}

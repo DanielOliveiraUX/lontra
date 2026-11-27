@@ -1,7 +1,14 @@
-title: The Mood Swinger
+title: Lake
 baseurl: "/lontra"
 url: "https://danieloliveiraux.github.io"
 lang: pt-BR
+markdown: kramdown
+collections:
+  projetos:
+    output: false
+  trabalhos:
+    output: false
 exclude:
   - README.md
   - .pages.yml
+  - GUIA-DO-PAINEL.md

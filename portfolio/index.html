@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono&family=Quicksand:wght@400;700&family=Varela+Round&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css?v=4">
+  <link rel="stylesheet" href="../assets/css/style.css?v=5">
 </head>
 <body class="page-portfolio">
   <main id="main">
@@ -29,71 +32,21 @@
       </div>
     </section>
 
-    <!-- Trabalhos publicados -->
-    <section class="sec work work--round" id="lg">
+    <!-- Trabalhos publicados (editáveis no painel: "Trabalhos do Portfolio") -->
+    {%- assign trabalhos = site.trabalhos | where_exp: "t", "t.publicado != false" | sort: "ordem", "last" %}
+    {%- for t in trabalhos %}
+    <section class="sec work{% if t.fonte == 'arredondada' %} work--round{% endif %}" id="{{ t.slug }}">
       <div class="grid">
-        <div class="work__media fx fx-fade"><video data-lazyplay muted loop playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_6d244122968a4eb39421b68ff533c484f000.jpg/v1/fill/w_1150,h_647,al_c,q_85/f.jpg"><source src="https://video.wixstatic.com/video/afd2d5_6d244122968a4eb39421b68ff533c484/720p/mp4/file.mp4" type="video/mp4"></video></div>
-        <h2 class="work__title fx fx-clip"><span>LG</span></h2>
-        <p class="work__sub fx fx-clip" data-delay="150"><span>Refrigeradores</span></p>
-        <span class="work__tag fx fx-fade" data-delay="300" style="top:500px"><span>#fun</span></span><span class="work__tag fx fx-fade" data-delay="450" style="top:542px"><span>#craft</span></span><span class="work__tag fx fx-fade" data-delay="600" style="top:585px"><span>#soundfx</span></span>
+        <div class="work__media fx fx-fade">{%- assign _ext = t.video | split: '.' | last | downcase -%}
+          {%- if _ext == 'mp4' or _ext == 'webm' or _ext == 'mov' or _ext == 'm4v' -%}
+          <video data-lazyplay muted loop playsinline preload="none"{% if t.capa %} poster="{% include url.html u=t.capa %}"{% endif %}><source src="{% include url.html u=t.video %}"></video>
+          {%- else -%}{% include media.html u=t.video alt=t.cliente %}{%- endif -%}</div>
+        <h2 class="work__title fx fx-clip"><span>{{ t.cliente }}</span></h2>
+        {% if t.projeto %}<p class="work__sub fx fx-clip" data-delay="150"><span>{{ t.projeto }}</span></p>{% endif %}
+        <div class="work__tags">{% for h in t.hashtags limit: 3 %}<span class="work__tag fx fx-fade" data-delay="{{ forloop.index0 | times: 150 | plus: 300 }}"><span>{{ h }}</span></span>{% endfor %}</div>
       </div>
     </section>
-    <section class="sec work" id="bacio-di-latte">
-      <div class="grid">
-        <div class="work__media fx fx-fade"><video data-lazyplay muted loop playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_28c236c51f98486b912280ac13b4fe13f000.jpg/v1/fill/w_1150,h_647,al_c,q_85/f.jpg"><source src="https://video.wixstatic.com/video/afd2d5_28c236c51f98486b912280ac13b4fe13/720p/mp4/file.mp4" type="video/mp4"></video></div>
-        <h2 class="work__title fx fx-clip"><span>Bacio di Latte</span></h2>
-        <p class="work__sub fx fx-clip" data-delay="150"><span>Picolés</span></p>
-        <span class="work__tag fx fx-fade" data-delay="300" style="top:500px"><span>#jingle</span></span><span class="work__tag fx fx-fade" data-delay="450" style="top:542px"><span>#groovy</span></span><span class="work__tag fx fx-fade" data-delay="600" style="top:585px"><span>#summer</span></span>
-      </div>
-    </section>
-    <section class="sec work" id="lebanese-army">
-      <div class="grid">
-        <div class="work__media fx fx-fade"><video data-lazyplay muted loop playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_30990aa93efc4978845c48ff3925495ef000.jpg/v1/fill/w_1150,h_647,al_c,q_85/f.jpg"><source src="https://video.wixstatic.com/video/afd2d5_30990aa93efc4978845c48ff3925495e/720p/mp4/file.mp4" type="video/mp4"></video></div>
-        <h2 class="work__title fx fx-clip"><span>The Lebanese Army</span></h2>
-        <p class="work__sub fx fx-clip" data-delay="150"><span>PeaceCamo</span></p>
-        <span class="work__tag fx fx-fade" data-delay="300" style="top:500px"><span>#sounddesign</span></span><span class="work__tag fx fx-fade" data-delay="450" style="top:542px"><span>#orchestral</span></span><span class="work__tag fx fx-fade" data-delay="600" style="top:585px"><span>#storytelling</span></span>
-      </div>
-    </section>
-    <section class="sec work" id="under-amour">
-      <div class="grid">
-        <div class="work__media fx fx-fade"><video data-lazyplay muted loop playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_28c236c51f98486b912280ac13b4fe13f000.jpg/v1/fill/w_1150,h_647,al_c,q_85/f.jpg"><source src="https://video.wixstatic.com/video/afd2d5_28c236c51f98486b912280ac13b4fe13/720p/mp4/file.mp4" type="video/mp4"></video></div>
-        <h2 class="work__title fx fx-clip"><span>Bacio di Latte</span></h2>
-        <p class="work__sub fx fx-clip" data-delay="150"><span>Picolés</span></p>
-        <span class="work__tag fx fx-fade" data-delay="300" style="top:500px"><span>#jingle</span></span><span class="work__tag fx fx-fade" data-delay="450" style="top:542px"><span>#groovy</span></span><span class="work__tag fx fx-fade" data-delay="600" style="top:585px"><span>#summer</span></span>
-      </div>
-    </section>
-    <section class="sec work" id="nissan">
-      <div class="grid">
-        <div class="work__media fx fx-fade"><video data-lazyplay muted loop playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_28c236c51f98486b912280ac13b4fe13f000.jpg/v1/fill/w_1150,h_647,al_c,q_85/f.jpg"><source src="https://video.wixstatic.com/video/afd2d5_28c236c51f98486b912280ac13b4fe13/720p/mp4/file.mp4" type="video/mp4"></video></div>
-        <h2 class="work__title fx fx-clip"><span>Bacio di Latte</span></h2>
-        <p class="work__sub fx fx-clip" data-delay="150"><span>Picolés</span></p>
-        <span class="work__tag fx fx-fade" data-delay="300" style="top:500px"><span>#jingle</span></span><span class="work__tag fx fx-fade" data-delay="450" style="top:542px"><span>#groovy</span></span><span class="work__tag fx fx-fade" data-delay="600" style="top:585px"><span>#summer</span></span>
-      </div>
-    </section>
-    <section class="sec work" id="du">
-      <div class="grid">
-        <div class="work__media fx fx-fade"><video data-lazyplay muted loop playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_28c236c51f98486b912280ac13b4fe13f000.jpg/v1/fill/w_1150,h_647,al_c,q_85/f.jpg"><source src="https://video.wixstatic.com/video/afd2d5_28c236c51f98486b912280ac13b4fe13/720p/mp4/file.mp4" type="video/mp4"></video></div>
-        <h2 class="work__title fx fx-clip"><span>Bacio di Latte</span></h2>
-        <p class="work__sub fx fx-clip" data-delay="150"><span>Picolés</span></p>
-        <span class="work__tag fx fx-fade" data-delay="300" style="top:500px"><span>#jingle</span></span><span class="work__tag fx fx-fade" data-delay="450" style="top:542px"><span>#groovy</span></span><span class="work__tag fx fx-fade" data-delay="600" style="top:585px"><span>#summer</span></span>
-      </div>
-    </section>
-    <section class="sec work" id="prime-video">
-      <div class="grid">
-        <div class="work__media fx fx-fade"><video data-lazyplay muted loop playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_28c236c51f98486b912280ac13b4fe13f000.jpg/v1/fill/w_1150,h_647,al_c,q_85/f.jpg"><source src="https://video.wixstatic.com/video/afd2d5_28c236c51f98486b912280ac13b4fe13/720p/mp4/file.mp4" type="video/mp4"></video></div>
-        <h2 class="work__title fx fx-clip"><span>Bacio di Latte</span></h2>
-        <p class="work__sub fx fx-clip" data-delay="150"><span>Picolés</span></p>
-        <span class="work__tag fx fx-fade" data-delay="300" style="top:500px"><span>#jingle</span></span><span class="work__tag fx fx-fade" data-delay="450" style="top:542px"><span>#groovy</span></span><span class="work__tag fx fx-fade" data-delay="600" style="top:585px"><span>#summer</span></span>
-      </div>
-    </section>
-    <section class="sec work" id="mercedes-benz">
-      <div class="grid">
-        <div class="work__media fx fx-fade"><video data-lazyplay muted loop playsinline preload="none" poster="https://static.wixstatic.com/media/afd2d5_28c236c51f98486b912280ac13b4fe13f000.jpg/v1/fill/w_1150,h_647,al_c,q_85/f.jpg"><source src="https://video.wixstatic.com/video/afd2d5_28c236c51f98486b912280ac13b4fe13/720p/mp4/file.mp4" type="video/mp4"></video></div>
-        <h2 class="work__title fx fx-clip"><span>Bacio di Latte</span></h2>
-        <p class="work__sub fx fx-clip" data-delay="150"><span>Picolés</span></p>
-        <span class="work__tag fx fx-fade" data-delay="300" style="top:500px"><span>#jingle</span></span><span class="work__tag fx fx-fade" data-delay="450" style="top:542px"><span>#groovy</span></span><span class="work__tag fx fx-fade" data-delay="600" style="top:585px"><span>#summer</span></span>
-      </div>
-    </section>
+    {%- endfor %}
 
     <section class="sec pback">
       <a class="pback__btn" href="../">voltar à home</a>
@@ -112,16 +65,11 @@
   </main>
 
   <nav class="pnav" aria-label="Trabalhos">
-    <a href="#lg" data-target="lg"><span>LG</span><i></i></a>
-    <a href="#bacio-di-latte" data-target="bacio-di-latte"><span>Bacio di Latte</span><i></i></a>
-    <a href="#lebanese-army" data-target="lebanese-army"><span>The Lebanese Army</span><i></i></a>
-    <a href="#under-amour" data-target="under-amour"><span>Under Amour</span><i></i></a>
-    <a href="#nissan" data-target="nissan"><span>Nissan</span><i></i></a>
-    <a href="#du" data-target="du"><span>Du</span><i></i></a>
-    <a href="#prime-video" data-target="prime-video"><span>Prime Video</span><i></i></a>
-    <a href="#mercedes-benz" data-target="mercedes-benz"><span>Mercedes-Benz</span><i></i></a>
+    {%- for t in trabalhos %}
+    <a href="#{{ t.slug }}" data-target="{{ t.slug }}"><span>{{ t.menu | default: t.cliente }}</span><i></i></a>
+    {%- endfor %}
   </nav>
 
-  <script src="../assets/js/main.js?v=3" defer></script>
+  <script src="../assets/js/main.js?v=5" defer></script>
 </body>
 </html>

@@ -39,8 +39,9 @@
   function progress(top, h) { return clamp((vh - top) / (vh + h), 0, 1); }
 
   function onScroll() {
+    var desk = window.innerWidth >= 980;
     if (!reduce) {
-      par.forEach(function (p) {
+      if (desk) par.forEach(function (p) {
         // posição sem a transformação: usa o pai (grade) + offsetTop
         var top = p.el.offsetParent.getBoundingClientRect().top + p.el.offsetTop;
         var t = p.a * (1 - 2 * progress(top, p.el.offsetHeight));
