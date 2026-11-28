@@ -200,6 +200,15 @@ async function pagina(req, env, qual) {
 async function api(req, env, url) {
   const rota = url.pathname.replace(/^\/api\//, "");
   const m = req.method;
+  // Diagnóstico público (não revela nenhum segredo): mostra o que está ligado.
+  if (rota === "status") {
+    const st = { banco: !!env.DB, midia: !!env.MIDIA_KV, senha_desenvolvedor: !!env.SENHA_DESENVOLVEDOR, login_desenvolvedor: (env.LOGIN_DESENVOLVEDOR || "daniel") };
+    if (env.DB) {
+      try { await garantirBanco(env); const r = await env.DB.prepare("SELECT COUNT(*) n FROM usuario").first(); st.tabelas = "ok"; st.usuarios = r.n; }
+      catch (e) { st.tabelas = "erro: " + e.message; }
+    }
+    return json(st);
+  }
   if (!env.DB) return erro("Banco de dados não configurado.", 500);
   // Toda alteração precisa vir da própria gestão (proteção contra formulários de outros sites).
   if (m !== "GET" && req.headers.get("X-Lake") !== "1") return erro("Pedido recusado.", 403);
@@ -342,7 +351,7 @@ export default {
     const url = new URL(req.url);
     const p = url.pathname;
     try {
-      if (p.startsWith("/api/") || p === "/" || p.startsWith("/portfolio")) await garantirBanco(env);
+      if ((p.startsWith("/api/") && p !== "/api/status") || p === "/" || p.startsWith("/portfolio")) await garantirBanco(env);
       if (p.startsWith("/api/")) return await api(req, env, url);
       if (p.startsWith("/media/")) return await servirMidia(req, env, decodeURIComponent(p.slice(7)));
       if (p === "/" || p === "/index.html") return await pagina(req, env, "home");
